@@ -49,3 +49,9 @@ import Lax762056Proofs.CNFMachine
 import Lax762056Proofs.SubdividedLabels
 import Lax762056Proofs.MaxCutIso
 import Lax762056Proofs.CutVertices
+import Lax762056Proofs.CutEndpoints
+import Lax762056Proofs.CutTests
+import Lax762056Proofs.CutEnumeration
+import Lax762056Proofs.CutMachine
+import Lax762056Proofs.CookBridge
+import Lax762056Proofs.MaxCutHard

@@ -82,18 +82,16 @@ theorem selected_of_ge (F : ShortCNF.Formula) (i : ℕ) (j : Fin 3) (hi : F.leng
   · rw [selected, after_past F i (by omega)]
     rfl
 
-theorem selected_correct (F : ShortCNF.Formula) (hF : ShortCNF.Short F)
+theorem selected_correct (F : ShortCNF.Formula)
     (i : Fin (ShortCNF.encode F).length) (j : Fin 3) :
     ShortCNF.boundLiteral _ (ShortCNF.encode_pos F) (selected F i.val j) = ShortCNF.toThreeSAT F i j := by
   by_cases hi : i.val < F.length
   · rw [selected_of_lt F i.val j hi]
-    have hmem : F[i.val] ∈ F := List.getElem_mem _
-    have hn : F[i.val] ≠ [] := by
-      have h := (hF _ hmem).1
-      intro he
-      simp [he] at h
-    rw [chosen_triple _ _ _ hn]
-    simp [ShortCNF.toThreeSAT, hi]
+    by_cases hn : F[i.val] = []
+    · simpa [hn, chosen, ShortCNF.toThreeSAT, hi] using
+        (default_triple (ShortCNF.encode F).length (ShortCNF.encode_pos F) j)
+    · rw [chosen_triple _ _ _ hn]
+      simp [ShortCNF.toThreeSAT, hi]
   · rw [selected_of_ge F i.val j (by omega), default_triple]
     simp [ShortCNF.toThreeSAT, hi]
 

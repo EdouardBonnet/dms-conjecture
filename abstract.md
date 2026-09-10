@@ -1,4 +1,4 @@
-We state Theorem 5 of Bonnet and Chang: Maximum Independent Set is NP-hard
+We prove Theorem 5 of Bonnet and Chang: Maximum Independent Set is NP-hard
 on graphs excluding the $5\times5$ grid as an induced minor. The reduction
 from Max Cut constructs a graph $G_F$ in this class satisfying
 $\alpha(G_F)=\operatorname{MaxCut}(F)+2\sum_{uv\in E(F),\,u<v}(v-u)$.
@@ -12,9 +12,10 @@ generalization unless $\mathrm{P}=\mathrm{NP}$. The quasipolynomial-time
 conjecture of Gartland–Lokshtanov and Korhonen would imply
 $\mathrm{NP}\subseteq\mathrm{QP}$.
 
-The graph-theoretic proofs of Claims 9 and 10 are complete in Lean, including
-the cycle obstruction and the explicit independent-set construction. The full
-NP-hardness theorem remains open: the encoded reduction's polynomial running
-time and the Max Cut hardness prerequisite still require proofs. The latter
-will use the Cook–Levin submission currently in preparation. The ETH lower
-bound in Corollary 6 is outside this submission.
+The Lean proofs include the cycle obstruction, the explicit independent-set
+construction, and finite machines with polynomial running-time bounds for
+both reductions. Max Cut hardness follows from the Cook–Levin circuit
+compiler in lax-429075 through three-literal satisfiability, not-all-equal
+satisfiability, and simple unweighted graph gadgets. All eight theorem and
+lemma statements are proved. The ETH lower bound in Corollary 6 is outside
+this submission.

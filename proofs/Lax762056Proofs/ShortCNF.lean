@@ -1,9 +1,9 @@
 import Lax762056Proofs.ThreeSAT
 
-/-! Interface for the short clauses produced by the pending Cook–Levin
+/-! Interface for the short clauses produced by the Cook–Levin
 circuit compiler. Both the variable and clause bounds are the binary input
 length; extra clauses are tautologies. This avoids a separate maximum-index
-computation in the eventual machine. -/
+computation in the machine. -/
 
 namespace Lax762056Proofs.ShortCNF
 

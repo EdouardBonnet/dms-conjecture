@@ -27,3 +27,9 @@ name = "Lax979537Proofs"
 git = "https://github.com/szymtor/immerman-vardi"
 rev = "82ef67e68fab884dc4cff117a1b871567bdaaafd"
 subDir = "proofs"
+
+[[require]]
+name = "Lax429075"
+git = "https://github.com/EdouardBonnet/cook-levin"
+rev = "3481a9cc2e2693124717e398f443f8053629d730"
+subDir = "concepts"

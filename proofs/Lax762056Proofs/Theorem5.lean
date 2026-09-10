@@ -6,6 +6,7 @@ import Lax762056Proofs.IndependenceIdentity
 import Lax762056Proofs.IsoTransport
 import Lax762056Proofs.PolynomialComposition
 import Lax762056Proofs.ReductionTime
+import Lax762056Proofs.MaxCutHard
 
 namespace Lax762056Proofs
 
@@ -16,16 +17,17 @@ open Lax762056 GraphEncoding Lax434930.PolynomialTime
 ---
 conclusion: Lax762056.Theorem5.np_hard
 ---
-Compose Max Cut hardness with the encoded construction. The graph proofs
-and the polynomial-time construction are closed. The remaining local
-assumption is `MaxCutHard.np_hard`, awaiting the Cook–Levin reduction.
+Compose the proved Max Cut hardness reduction with the encoded construction,
+then apply the induced-minor exclusion and independence-number identity.
+The proof uses the published Cook–Levin circuit compiler and Tseitin
+correctness; every graph and machine lemma specific to this submission is proved.
 -/
 theorem theorem5 (A : Language) (hA : A ∈ NP) :
     ∃ f : Word → Instance,
       Nonempty (Turing.TM2ComputableInPolyTime id encode f) ∧
       ∀ x, Grid.ExcludesGrid (f x).graph ∧
         (x ∈ A ↔ (f x).threshold ≤ (f x).graph.indepNum) := by
-  obtain ⟨f, ⟨hf⟩, hcorrect⟩ := MaxCutHard.np_hard A hA
+  obtain ⟨f, ⟨hf⟩, hcorrect⟩ := maxCut_np_hard A hA
   obtain ⟨g, ⟨hg⟩, hgraph⟩ := reduction_polynomial_time
   refine ⟨g ∘ f, PolynomialComposition.comp hf hg, ?_⟩
   intro x

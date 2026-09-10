@@ -1,8 +1,9 @@
-# Proof status and remaining work
+# Proof status and structure
 
-Six of the eight concept statements have complete Lean proofs with no
-archive-statement assumptions. Theorem 5 is assembled but still depends on
-the one open local statement `MaxCutHard.np_hard`.
+All eight concept statements have Lean proofs. Six use only Lean's standard
+axioms. Max Cut hardness and Theorem 5 additionally use the proved circuit
+compiler and Tseitin correctness from the published lax-429075 submission.
+There are no remaining open local statements.
 
 | Statement | Status | Proof |
 | --- | --- | --- |
@@ -11,9 +12,9 @@ the one open local statement `MaxCutHard.np_hard`.
 | `GridExclusion.intermediate` | Closed | `intermediate_excludes_grid` |
 | `GridExclusion.reduction` | Closed | `reduction_excludes_grid` |
 | `IndependenceIdentity.identity` | Closed | `independence_identity` |
-| `MaxCutHard.np_hard` | Open | Cook–Levin and satisfiability-to-Max-Cut reductions |
+| `MaxCutHard.np_hard` | Proved from lax-429075 | `maxCut_np_hard` |
 | `ReductionTime.polynomial_time` | Closed | `reduction_polynomial_time` |
-| `Theorem5.np_hard` | Assembled; assumes `MaxCutHard.np_hard` | `theorem5` |
+| `Theorem5.np_hard` | Proved from lax-429075 | `theorem5` |
 
 Proof names have prefix `Lax762056Proofs.`; statement names have prefix
 `Lax762056.`. The proof package contains no new axioms or placeholder proofs.
@@ -74,9 +75,10 @@ included.
 `IsoTransport` transfers induced-minor exclusion and independence numbers
 across the algorithm's output isomorphism. `Theorem5` composes the reductions,
 uses the closed graph and machine proofs, and cancels the common threshold
-offset. It now assumes only `MaxCutHard.np_hard`.
+offset. It invokes the proved `maxCut_np_hard`, so its only archive-statement
+assumptions are the two proved Cook–Levin prerequisites.
 
-## Remaining Cook–Levin prerequisite
+## Completed Cook–Levin prerequisite
 
 The semantic gadget chain is checked:
 
@@ -108,26 +110,29 @@ complete finite machine with a polynomial running-time bound, including
 input-length counting and final cleanup. The machine passes the standard
 axiom audit. `CutVertices` provides a fixed enumeration and bijection with
 the gadget vertices; `MaxCutIso` proves invariance under this relabeling.
-Instantiating the output query and proving equality with the complete graph
-encoding remain to be done.
 
-The full Lax build and kernel replay pass (13 concepts, 7 registered proofs).
-A separate axiom audit verifies that the machine construction, composition,
-and gadget correctness use only `propext`, `Classical.choice`, and
-`Quot.sound`.
+`CutEndpoints` identifies the gadget's edges through typed endpoint labels.
+`CutTests` implements their adjacency predicate using coordinate equality
+and signed literal lookups. `CutEnumeration` writes the vertices and the full
+adjacency matrix in the order specified by the graph encoding, and proves
+that relabeling preserves maximum cut size. `CutMachine` adds the order and
+threshold fields and proves equality of the complete output word with the
+encoded graph. The construction and running-time proof hold for every
+encoded formula; its satisfiability equivalence requires nonempty clauses
+of size at most three.
 
-Still required:
+`CookBridge` proves that lax-429075's binary formula encoding equals the
+local encoding, and that every Tseitin clause is nonempty and has size at
+most three. It reuses the published circuit compiler, composes it with the
+proved Max Cut machine, and applies Tseitin correctness. `MaxCutHard`
+specializes this result to the verifier and certificate polynomial supplied
+by membership in the existing NP.
 
-1. Prove polynomial-time computation of the encoded short-CNF-to-Max-Cut
-   reduction. Semantic correctness and output-size bounds alone do not
-   establish this machine-time claim.
-2. Once Cook–Levin is archived, pin lax-429075's concept package at its
-   archived source commit and connect its circuit compiler and Tseitin
-   correctness to the local reduction. Its Tseitin clauses have length one
-   to three, so repeating literals suffices to obtain three-literal clauses;
-   no general long-clause conversion is needed.
-3. Close `MaxCutHard.np_hard`, rerun the dependency audit and kernel replay,
-   and prepare the final archive submission.
+Validation passed on 2026-09-10: `lax build . --replay` checked all 13 concepts
+and 8 annotated proofs, including kernel replay, in 2m54s. A separate axiom
+audit confirmed the exact dependency sets described above. The complexity,
+Cook–Levin, and stack-compiler dependencies
+are archive drafts pinned at their published source commits.
 
 P and NP retain their existing definitions. No proof uses lax-13. Any future
 RAM implementation must use lax-67 and a proved bridge to the time model.

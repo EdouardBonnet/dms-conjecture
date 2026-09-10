@@ -23,6 +23,8 @@ placeholder proof is used. At this preparation stage, the proof package is empty
    construction uses edge weights or parallel edges, remove them with explicit
    gadgets and polynomial size bounds. Handle malformed CNF words with a fixed
    no-instance. This discharges `MaxCutHard.np_hard`; Cook–Levin alone does not.
+   The classical reference for simple unweighted Max Cut is
+   [Garey–Johnson–Stockmeyer (1976)](https://doi.org/10.1016/0304-3975%2876%2990059-1).
 
 3. **Induced-minor infrastructure.** Prove transitivity, invariance under graph
    isomorphism, and that induced subgraphs are induced minors. Check that

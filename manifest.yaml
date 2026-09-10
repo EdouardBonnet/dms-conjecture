@@ -11,5 +11,17 @@ bibEntries:
     @unpublished{BonnetChang,
       author = {Édouard Bonnet and Yeonsu Chang},
       title = {Max Independent Set Remains {NP}-hard when Excluding a Planar Induced Minor},
+      year = {2026},
       note = {Manuscript supplied as main.pdf, Theorem 5 and Claims 9--10}
+    }
+  - |
+    @article{GareyJohnsonStockmeyer1976,
+      author = {M. R. Garey and D. S. Johnson and L. Stockmeyer},
+      title = {Some Simplified {NP}-Complete Graph Problems},
+      journal = {Theoretical Computer Science},
+      volume = {1},
+      number = {3},
+      pages = {237--267},
+      year = {1976},
+      doi = {10.1016/0304-3975(76)90059-1}
     }

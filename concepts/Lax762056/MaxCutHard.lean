@@ -11,6 +11,7 @@ Max Cut on finite simple unweighted graphs. For every binary input the
 reduction outputs a well-formed graph and threshold, with cut size at least
 the threshold exactly on yes-inputs.
 
+The classical result is due to Garey, Johnson, and Stockmeyer (1976).
 This is a prerequisite of Theorem 5, rather than an assumption in its
 statement. Its proof is to use the pending Cook–Levin submission, followed
 by the standard satisfiability-to-Max-Cut reductions. In particular, a

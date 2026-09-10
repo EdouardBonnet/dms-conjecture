@@ -4,7 +4,7 @@ Local Lax submission **lax-762056**, preparing **Theorem 5** of Édouard Bonnet
 and Yeonsu Chang's supplied manuscript, *Max Independent Set Remains NP-hard
 when Excluding a Planar Induced Minor*.
 
-**Status: concept draft, with open proof obligations.** A successful Lax build
+**Status: concept draft, with 13 concepts and 8 open statements.** A successful Lax build
 checks that the definitions and statements meet archive rules; it does not
 prove the statements. The proof package is intentionally empty at this stage.
 
@@ -56,6 +56,14 @@ record. It is therefore not yet a legal pinned dependency. Once it is
 submitted, add its concept package to the proof lakefile at its archived
 source commit, and use its NP-completeness theorem to prove `MaxCutHard.np_hard`.
 The main statement and graph definitions will not need to change.
+
+Validation with `lax build . --replay` passed, including kernel replay and
+inspection of all 13 concepts. The only reported warnings concern the two
+complexity dependencies being archive drafts. A separate finite sanity check
+confirmed the reduction's identity and vertex count for every graph on at
+most four labeled vertices (76 graphs), as well as the grid cycles and
+avoiding paths specified in the proof plan. These checks do not close any
+of the eight proof obligations.
 
 Run `lax build . --replay` from this directory. The scaffold uses the default
 archive environment, Lean 4.30.0 and mathlib commit

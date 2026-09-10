@@ -4,10 +4,12 @@ Local Lax submission **lax-762056**, preparing **Theorem 5** of Édouard Bonnet
 and Yeonsu Chang's supplied manuscript, *Max Independent Set Remains NP-hard
 when Excluding a Planar Induced Minor*.
 
-**Status: Claims 9 and 10 have complete Lean proofs; the full NP-hardness
-theorem remains open.** Of the eight statements in the 13 concepts, five now
-have closed proofs. The three remaining statements concern Max Cut hardness,
-polynomial-time computation of the encoded reduction, and Theorem 5 itself.
+**Status: the paper's graph proofs and the polynomial-time encoded
+construction have complete Lean proofs. Theorem 5 is assembled, with
+`MaxCutHard.np_hard` as its one remaining local assumption.** Six of the
+eight concept statements are closed. The remaining work is the
+Cook–Levin-to-Max-Cut prerequisite: its gadget correctness is proved;
+its machine-time implementation and Cook–Levin integration remain open.
 
 The closed proof of [Claim 9](proofs/Lax762056Proofs/GridExclusion.lean) uses
 the explicit three-cycle grid witness and the general obstruction for column
@@ -41,9 +43,9 @@ is no hypothesis assuming Max Cut hardness or the correctness of the reduction.
 
 Vertices are indexed from zero. Thus column `2*j` represents the paper's
 vertex `v_(j+1)`; an edge's two rows keep opposite sides at their endpoints.
-The definition includes empty and edgeless input graphs. Isomorphic output
-labelings are allowed so that a future algorithm can use a fixed computable
-enumeration of retained vertices.
+The definition includes empty and edgeless input graphs. The algorithm uses a fixed lexicographic
+enumeration of the retained vertices and proves that its output graph is
+isomorphic to the graph used in the structural proofs.
 
 The theorem gives the paper's conditional refutations of Conjectures 1 and 4
 (unless P = NP) and Conjecture 2 (unless NP is contained in QP). These
@@ -53,19 +55,27 @@ Corollary 6's ETH bound nor Conjectures 7 and 8 is a claim of this submission.
 
 The concept package depends on **lax-434930** (classical complexity), which
 depends on **lax-554803** (polynomial-time Turing machines). P and NP are reused
-without modification. The time interface is the one used by the pending
-Cook–Levin work. No RAM dependency is needed for the statements. A future
-RAM implementation should use **lax-67**; lax-51's published equivalence
-currently imports the older lax-13, so it cannot serve as the bridge here.
+without modification. The proof package also pins **lax-979537**'s verified
+finite stack-program and formula-evaluation compiler. The reduction has a
+single finite machine, with a proved polynomial bound on its actual running
+time, including parsing, output, and cleanup. A separate proved composition
+machine avoids mathlib's unfinished polynomial-time composition theorem.
+
+These proofs use the exact Turing-machine model of the existing P and NP;
+no RAM simulation is needed and **lax-13 is not used**. If a RAM bridge becomes
+necessary, it must use **lax-67**.
 
 Cook–Levin currently exists locally as **lax-429075** but has no archive
-record. It is therefore not yet a legal pinned dependency. Once it is
-submitted, add its concept package to the proof lakefile at its archived
-source commit, and use its NP-completeness theorem to prove `MaxCutHard.np_hard`.
-The main statement and graph definitions will not need to change.
+record. It is therefore not yet a legal pinned dependency. Its anticipated
+circuit compiler outputs Tseitin clauses of length one to three. The local
+proofs already establish 3-SAT to NAE-3-SAT to simple unweighted Max Cut,
+including loops and repeated occurrences in the intermediate construction.
+Completing the encoded satisfiability-to-Max-Cut machine and connecting the
+archived Cook–Levin interface will close `MaxCutHard.np_hard`; the paper's
+construction and the final theorem assembly will not need to change.
 
 Run `lax build . --replay` to validate the definitions, inspect the proof
-assumptions, and replay the proofs in the kernel. The two complexity
+assumptions, and replay the proofs in the kernel. The complexity and stack-compiler
 dependencies are archive drafts. A separate finite sanity check also confirmed
 the reduction's identity and vertex count for every graph on at most four
 labeled vertices (76 graphs). The general Claims 9 and 10 are proved in Lean,

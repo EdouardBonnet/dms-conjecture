@@ -20,6 +20,7 @@ a parameter and excludes the corresponding square grid as an induced minor.
 
 The construction and its structural properties are in
 [Reduction](concepts/Lax762056/Reduction.lean),
+[ColumnGridExclusion](concepts/Lax762056/ColumnGridExclusion.lean),
 [GridExclusion](concepts/Lax762056/GridExclusion.lean), and
 [IndependenceIdentity](concepts/Lax762056/IndependenceIdentity.lean).
 [PROOFS.md](PROOFS.md) describes the proof structure.

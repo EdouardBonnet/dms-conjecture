@@ -1,5 +1,6 @@
 import Lax762056.AsteroidalCycles
 import Lax762056.ColumnGraph
+import Lax762056.ColumnGridExclusion
 import Lax762056.CycleObstruction
 import Lax762056.GraphEncoding
 import Lax762056.GraphProblems

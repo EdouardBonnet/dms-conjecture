@@ -1,4 +1,5 @@
 import Lax762056.GridExclusion
+import Lax762056.ColumnGridExclusion
 import Lax762056.CycleObstruction
 import Lax762056Proofs.InducedModels
 
@@ -8,7 +9,7 @@ open Lax762056 ColumnGraph Grid Reduction CycleObstruction
 
 /--
 ---
-conclusion: Lax762056.GridExclusion.columnGraph_excludes_inducedGrid
+conclusion: Lax762056.ColumnGridExclusion.columnGraph_excludes_inducedGrid
 ---
 Apply the general obstruction to the explicit triple of cycles in the grid.
 -/
@@ -26,7 +27,7 @@ Induced-minor exclusion passes to induced subgraphs.
 theorem reduction_excludes_inducedGrid {n : ℕ} (F : SimpleGraph (Fin n)) :
     ExcludesInducedGrid 5 (reductionGraph F) := by
   rintro ⟨M⟩
-  exact GridExclusion.columnGraph_excludes_inducedGrid (Reduction.Row F) (2 * n - 1)
+  exact ColumnGridExclusion.columnGraph_excludes_inducedGrid (Reduction.Row F) (2 * n - 1)
     ⟨InducedModels.liftInduce M⟩
 
 end Lax762056Proofs

@@ -1,0 +1,15 @@
+specVersion: "1"
+id: lax-762056
+leanVersion: "v4.30.0"
+mathlibVersion: "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+title: "Max Independent Set Remains NP-hard when Excluding a Planar Induced Minor"
+authors:
+  - name: Édouard Bonnet
+  - name: GPT-6
+bibEntries:
+  - |
+    @unpublished{BonnetChang,
+      author = {Édouard Bonnet and Yeonsu Chang},
+      title = {Max Independent Set Remains {NP}-hard when Excluding a Planar Induced Minor},
+      note = {Manuscript supplied as main.pdf, Theorem 5 and Claims 9--10}
+    }

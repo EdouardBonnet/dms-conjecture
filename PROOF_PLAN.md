@@ -101,8 +101,15 @@ output graph of order 20L + 4 with threshold 22L + 3.
 finite stack program. Lookup with clause index i has time at most
 (2L + 5)i + 15L + 35, and returns the literal specified by `toThreeSAT`.
 `StackEqual` and `StackCount` supply checked unary comparison and input-length
-counting. These components still need to be connected to the Max Cut graph
-writer before the full satisfiability-to-Max-Cut time claim is closed.
+counting. `CNFAtom` and `CNFAtomLiteral` implement the equality and signed-literal
+queries, including restoration of all work stacks. `CNFWriter`,
+`CNFWriterLoop`, and `CNFMachine` compile bounded output queries into a
+complete finite machine with a polynomial running-time bound, including
+input-length counting and final cleanup. The machine passes the standard
+axiom audit. `CutVertices` provides a fixed enumeration and bijection with
+the gadget vertices; `MaxCutIso` proves invariance under this relabeling.
+Instantiating the output query and proving equality with the complete graph
+encoding remain to be done.
 
 The full Lax build and kernel replay pass (13 concepts, 7 registered proofs).
 A separate axiom audit verifies that the machine construction, composition,

@@ -39,3 +39,13 @@ import Lax762056Proofs.CNFHead
 import Lax762056Proofs.CNFLookup
 import Lax762056Proofs.StackEqual
 import Lax762056Proofs.StackCount
+import Lax762056Proofs.CNFLookupStore
+import Lax762056Proofs.CNFAtom
+import Lax762056Proofs.CNFAtomLiteral
+import Lax762056Proofs.CNFSource
+import Lax762056Proofs.CNFWriter
+import Lax762056Proofs.CNFWriterLoop
+import Lax762056Proofs.CNFMachine
+import Lax762056Proofs.SubdividedLabels
+import Lax762056Proofs.MaxCutIso
+import Lax762056Proofs.CutVertices

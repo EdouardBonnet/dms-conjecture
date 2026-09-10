@@ -14,10 +14,12 @@ edges.
 
 namespace Lax762056.ColumnGraph
 
+open SimpleGraph
+
 abbrev Vertex (R : Type*) (c : ℕ) := R × Fin c × Bool
 
-def graph (R : Type*) (c : ℕ) : SimpleGraph (Vertex R c) :=
-  SimpleGraph.fromRel fun (row, column, side) (row', column', side') =>
+def columnGraph (R : Type*) (c : ℕ) : SimpleGraph (Vertex R c) :=
+  fromRel fun (row, column, side) (row', column', side') =>
     (column = column' ∧ side ≠ side') ∨
     (row = row' ∧ (column.val + 1 = column'.val ∨ column'.val + 1 = column.val))
 

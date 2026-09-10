@@ -28,7 +28,7 @@ theorem mem_columns {I : Finset (Vtx F)} {r : Reduction.Row F} {j : ℕ} :
     exact Finset.mem_image.mpr ⟨x, Finset.mem_filter.mpr ⟨hx, hr⟩, hcol⟩
 
 theorem columns_card {I : Finset (Vtx F)}
-    (hI : (Reduction.graph F).IsIndepSet I) (r : Reduction.Row F) :
+    (hI : (Reduction.reductionGraph F).IsIndepSet I) (r : Reduction.Row F) :
     (rowColumns I r).card = (rowVertices I r).card := by
   classical
   apply Finset.card_image_of_injOn
@@ -40,7 +40,7 @@ theorem columns_card {I : Finset (Vtx F)}
   apply Subtype.ext
   exact Prod.ext hrow (Prod.ext (Fin.ext hcol) hside)
 
-theorem row_bound {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
+theorem row_bound {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I)
     (e : Reduction.Edge F) (t : Bool) :
     (rowColumns I (e, t)).card ≤ span e + 1 ∧
     (span e < (rowColumns I (e, t)).card →
@@ -66,7 +66,7 @@ def cutSide (I : Finset (Vtx F)) (v : Fin n) : Bool := by
   classical
   exact decide (∃ x ∈ I, col x = 2 * v.val ∧ side x = true)
 
-theorem cutSide_eq {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
+theorem cutSide_eq {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I)
     {x : Vtx F} (hx : x ∈ I) (v : Fin n) (hv : col x = 2 * v.val) :
     cutSide I v = side x := by
   classical
@@ -80,7 +80,7 @@ theorem cutSide_eq {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
     exact ⟨x, hx, hv, hs⟩
 
 theorem full_row_endpoints {I : Finset (Vtx F)}
-    (hI : (Reduction.graph F).IsIndepSet I) (e : Reduction.Edge F) (t : Bool)
+    (hI : (Reduction.reductionGraph F).IsIndepSet I) (e : Reduction.Edge F) (t : Bool)
     (hlarge : span e < (rowColumns I (e, t)).card) :
     cutSide I e.val.1 = t ∧ cutSide I e.val.2 = !t := by
   obtain ⟨ha, hb⟩ := (row_bound hI e t).2 hlarge
@@ -92,7 +92,7 @@ theorem full_row_endpoints {I : Finset (Vtx F)}
   exact ⟨(cutSide_eq hI hx e.val.1 hcx).trans hsx,
     (cutSide_eq hI hy e.val.2 hcy).trans hsy⟩
 
-theorem edge_bound {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
+theorem edge_bound {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I)
     (e : Reduction.Edge F) :
     (rowColumns I (e, false)).card + (rowColumns I (e, true)).card ≤
       2 * span e + if cutSide I e.val.1 ≠ cutSide I e.val.2 then 1 else 0 := by
@@ -130,7 +130,7 @@ theorem cutSize_eq_sum (I : Finset (Vtx F)) :
   cases ha : cutSide I e.1 <;> cases hb : cutSide I e.2 <;>
     simp [cutSet, ha, hb]
 
-theorem card_bound {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I) :
+theorem card_bound {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I) :
     I.card ≤ MaxCut.maxCut F + Reduction.offset F := by
   classical
   have hsum : I.card = ∑ r : Reduction.Row F, (rowVertices I r).card := by
@@ -153,8 +153,8 @@ theorem card_bound {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I) 
     _ ≤ MaxCut.maxCut F + Reduction.offset F := by omega
 
 theorem independence_upper :
-    (Reduction.graph F).indepNum ≤ MaxCut.maxCut F + Reduction.offset F := by
-  obtain ⟨I, hI⟩ := (Reduction.graph F).exists_isNIndepSet_indepNum
+    (Reduction.reductionGraph F).indepNum ≤ MaxCut.maxCut F + Reduction.offset F := by
+  obtain ⟨I, hI⟩ := (Reduction.reductionGraph F).exists_isNIndepSet_indepNum
   have := card_bound hI.isIndepSet
   simpa only [hI.card_eq] using this
 

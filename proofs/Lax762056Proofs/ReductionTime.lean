@@ -3,7 +3,7 @@ import Lax762056Proofs.GraphOffset
 
 namespace Lax762056Proofs
 
-open Lax762056 GraphEncoding
+open Lax762056 GraphEncoding Reduction
 
 /-- Output the order, matrix, and offset; the runner appends the input threshold. -/
 def reductionQuery : GraphQuery.Q :=
@@ -30,9 +30,9 @@ offset to the threshold. The enumeration and adjacency tests take polynomial tim
 -/
 theorem reduction_polynomial_time :
     ∃ f : Instance → Instance,
-      GraphEncoding.PolynomialTime f ∧
-      ∀ I, Nonempty ((f I).graph ≃g Reduction.graph I.graph) ∧
-        (f I).threshold = I.threshold + Reduction.offset I.graph := by
+      PolynomialTime f ∧
+      ∀ I, Nonempty ((f I).graph ≃g reductionGraph I.graph) ∧
+        (f I).threshold = I.threshold + offset I.graph := by
   obtain ⟨machine⟩ := GraphQuery.polynomial_time reductionQuery
   refine ⟨EncodedReduction.reduce, ⟨{ machine with outputsFun := ?_ }⟩, ?_⟩
   · intro I

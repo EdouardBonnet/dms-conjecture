@@ -11,12 +11,12 @@ The output vertices may be relabeled as consecutive integers.
 
 namespace Lax762056.ReductionTime
 
-open GraphEncoding
+open GraphEncoding Reduction
 
 axiom reduction_polynomial_time :
   ∃ f : Instance → Instance,
     PolynomialTime f ∧
-    ∀ I, Nonempty ((f I).graph ≃g Reduction.graph I.graph) ∧
-      (f I).threshold = I.threshold + Reduction.offset I.graph
+    ∀ I, Nonempty ((f I).graph ≃g reductionGraph I.graph) ∧
+      (f I).threshold = I.threshold + offset I.graph
 
 end Lax762056.ReductionTime

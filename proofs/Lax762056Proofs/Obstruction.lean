@@ -3,7 +3,7 @@ import Lax762056Proofs.CyclePairs
 
 namespace Lax762056Proofs.Obstruction
 
-open Lax762056 ColumnSets InducedModels
+open Lax762056 AsteroidalCycles ColumnGraph InducedMinors ColumnSets InducedModels
 
 def Separated {V : Type*} (G : SimpleGraph V) (S T : Set V) : Prop :=
   ∀ x ∈ S, ∀ y ∈ T, x ≠ y ∧ ¬ G.Adj x y
@@ -21,7 +21,7 @@ theorem union_separated {W V : Type*} {H : SimpleGraph W} {G : SimpleGraph V}
 
 theorem avoids_column {R : Type*} {c : ℕ}
     {S T : Set (ColumnGraph.Vertex R c)}
-    (hsep : Separated (ColumnGraph.graph R c) S T)
+    (hsep : Separated (columnGraph R c) S T)
     {a b : ColumnGraph.Vertex R c} (ha : a ∈ T) (hb : b ∈ T)
     (hab : column a = column b) (hside : a.2.2 ≠ b.2.2)
     {x : ColumnGraph.Vertex R c} (hx : x ∈ S) : column x ≠ column a := by
@@ -37,7 +37,7 @@ theorem avoids_column {R : Type*} {c : ℕ}
   exact hside (hxa.symm.trans hxb)
 
 theorem connected_left {R : Type*} {c k : ℕ} {S : Set (ColumnGraph.Vertex R c)}
-    (hS : ((ColumnGraph.graph R c).induce S).Connected)
+    (hS : ((columnGraph R c).induce S).Connected)
     (hno : ∀ z ∈ S, column z ≠ k)
     {x : ColumnGraph.Vertex R c} (hx : x ∈ S) (hxl : column x < k) :
     ∀ y ∈ S, column y < k := by
@@ -47,7 +47,7 @@ theorem connected_left {R : Type*} {c k : ℕ} {S : Set (ColumnGraph.Vertex R c)
   exact hno z hz hzk
 
 theorem connected_right {R : Type*} {c k : ℕ} {S : Set (ColumnGraph.Vertex R c)}
-    (hS : ((ColumnGraph.graph R c).induce S).Connected)
+    (hS : ((columnGraph R c).induce S).Connected)
     (hno : ∀ z ∈ S, column z ≠ k)
     {x : ColumnGraph.Vertex R c} (hx : x ∈ S) (hxl : k < column x) :
     ∀ y ∈ S, k < column y := by
@@ -74,23 +74,23 @@ theorem order_three (f : Fin 3 → ℕ)
 
 /--
 ---
-conclusion: Lax762056.CycleObstruction.avoidingCycles_obstruction
+conclusion: Lax762056.CycleObstruction.asteroidalCycles_obstruction
 ---
 Each cycle's branch sets contain opposite sides of a column. The three
 columns are distinct. The middle column is contained in the middle cycle's
 closed neighborhood and separates the other two cycles, contradicting their
 avoiding path.
 -/
-theorem avoidingCycles_obstruction (R W : Type*) (c : ℕ) (H : SimpleGraph W)
-    (hH : AsteroidalCycles.HasAsteroidalTriple H) :
-    ¬ InducedMinors.IsInducedMinor H (ColumnGraph.graph R c) := by
+theorem asteroidalCycles_obstruction (R W : Type*) (c : ℕ) (H : SimpleGraph W)
+    (hH : HasAsteroidalCycleTriple H) :
+    ¬ IsInducedMinor H (columnGraph R c) := by
   classical
   rintro ⟨M⟩
   obtain ⟨base, cycle, hcycle, hsep, hpaths⟩ := hH
   let U (i : Fin 3) := union M {w | w ∈ (cycle i).support}
-  have hUc (i) : ((ColumnGraph.graph R c).induce (U i)).Connected :=
+  have hUc (i) : ((columnGraph R c).induce (U i)).Connected :=
     union_connected M (cycle i).connected_induce_support
-  have hUs (i j) (hij : i ≠ j) : Separated (ColumnGraph.graph R c) (U i) (U j) :=
+  have hUs (i j) (hij : i ≠ j) : Separated (columnGraph R c) (U i) (U j) :=
     union_separated M (hsep hij)
   have hpairs (i) : ∃ x ∈ U i, ∃ y ∈ U i,
       column x = column y ∧ x.2.2 ≠ y.2.2 :=
@@ -111,9 +111,9 @@ theorem avoidingCycles_obstruction (R W : Type*) (c : ℕ) (H : SimpleGraph W)
   obtain ⟨u, hu, v, hv, p, hp⟩ := hpaths a d b had' hab' hbd'.symm
   rcases p with ⟨p, _⟩
   let P := union M {w | w ∈ p.support}
-  have hPc : ((ColumnGraph.graph R c).induce P).Connected :=
+  have hPc : ((columnGraph R c).induce P).Connected :=
     union_connected M p.connected_induce_support
-  have hPs : Separated (ColumnGraph.graph R c) P (U b) := union_separated M hp
+  have hPs : Separated (columnGraph R c) P (U b) := union_separated M hp
   have hnoP : ∀ z ∈ P, column z ≠ column (x b) :=
     fun z hz => avoids_column hPs (hx b) (hy b) (hcol b) (hside b) hz
   obtain ⟨z⟩ := (M.connected u).nonempty

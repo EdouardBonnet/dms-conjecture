@@ -127,7 +127,7 @@ theorem chosenVertex_injective (ρ : Fin n → Bool) : Function.Injective (chose
   exact Sigma.ext he (heq_of_eq hq)
 
 theorem chosen_nonadjacent (ρ : Fin n → Bool) (p q : ↥(selected (F := F) ρ)) :
-    ¬ (Reduction.graph F).Adj (chosenVertex ρ p) (chosenVertex ρ q) := by
+    ¬ (Reduction.reductionGraph F).Adj (chosenVertex ρ p) (chosenVertex ρ q) := by
   intro hadj
   rcases (adj _ _).mp hadj with ⟨hc, hs⟩ | ⟨hr, hc | hc⟩
   · apply hs
@@ -150,7 +150,7 @@ theorem chosen_nonadjacent (ρ : Fin n → Bool) (p q : ↥(selected (F := F) ρ
     exact tag_step ρ q.val.1 q.val.2 p.val.2 hqs hps (by omega) ht.symm
 
 theorem is_independent (ρ : Fin n → Bool) :
-    (Reduction.graph F).IsIndepSet (independentSet (F := F) ρ) := by
+    (Reduction.reductionGraph F).IsIndepSet (independentSet (F := F) ρ) := by
   classical
   intro x hx y hy hxy
   obtain ⟨p, hp, rfl⟩ := Finset.mem_image.mp hx
@@ -166,7 +166,7 @@ theorem card_independentSet (ρ : Fin n → Bool) :
   exact Finset.sum_congr rfl (fun e _ => positions_card ρ e)
 
 theorem lower_for_cut (S : Finset (Fin n)) :
-    MaxCut.cutSize F S + Reduction.offset F ≤ (Reduction.graph F).indepNum := by
+    MaxCut.cutSize F S + Reduction.offset F ≤ (Reduction.reductionGraph F).indepNum := by
   classical
   let ρ : Fin n → Bool := fun v => decide (v ∈ S)
   have hcount : (∑ e : Reduction.Edge F, if ρ e.val.1 ≠ ρ e.val.2 then 1 else 0) =
@@ -183,7 +183,7 @@ theorem lower_for_cut (S : Finset (Fin n)) :
   exact (is_independent ρ).card_le_indepNum
 
 theorem independence_lower :
-    MaxCut.maxCut F + Reduction.offset F ≤ (Reduction.graph F).indepNum := by
+    MaxCut.maxCut F + Reduction.offset F ≤ (Reduction.reductionGraph F).indepNum := by
   classical
   obtain ⟨S, hS, hmax⟩ := Finset.exists_mem_eq_sup
     (Finset.univ : Finset (Fin n)).powerset

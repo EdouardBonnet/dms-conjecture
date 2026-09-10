@@ -15,23 +15,23 @@ in the length of this word.
 
 namespace Lax762056.GraphEncoding
 
-open Lax434930.PolynomialTime
+open List Turing Lax434930.PolynomialTime
 
 structure Instance where
   order : ℕ
   graph : SimpleGraph (Fin order)
   threshold : ℕ
 
-def unary (n : ℕ) : Word := List.replicate n true ++ [false]
+def unary (n : ℕ) : Word := replicate n true ++ [false]
 
 noncomputable def encode (I : Instance) : Word := by
   classical
   exact unary I.order ++
-    (List.finRange I.order).flatMap (fun u =>
-      (List.finRange I.order).map (fun v => decide (I.graph.Adj u v))) ++
+    (finRange I.order).flatMap (fun u =>
+      (finRange I.order).map (fun v => decide (I.graph.Adj u v))) ++
     unary I.threshold
 
 def PolynomialTime (f : Instance → Instance) : Prop :=
-  Nonempty (Turing.TM2ComputableInPolyTime encode encode f)
+  Nonempty (TM2ComputableInPolyTime encode encode f)
 
 end Lax762056.GraphEncoding

@@ -9,7 +9,7 @@ variable {R W : Type*} {c : ℕ} {H : SimpleGraph W}
 
 /-- A cycle represented by connected branch sets cannot fit into a set
 that chooses at most one side of each column. -/
-theorem cycle_not_thin (M : InducedMinors.Model H (ColumnGraph.graph R c))
+theorem cycle_not_thin (M : InducedMinors.Model H (ColumnGraph.columnGraph R c))
     {v : W} (p : H.Walk v v) (hp : p.IsCycle) :
     ¬ Thin (union M {w | w ∈ p.support}) := by
   classical
@@ -44,7 +44,7 @@ theorem cycle_not_thin (M : InducedMinors.Model H (ColumnGraph.graph R c))
   exact Set.disjoint_left.mp (M.disjoint q.snd q.penultimate hq.snd_ne_penultimate)
     (hbd ▸ hb) hd
 
-theorem cycle_pair (M : InducedMinors.Model H (ColumnGraph.graph R c))
+theorem cycle_pair (M : InducedMinors.Model H (ColumnGraph.columnGraph R c))
     {v : W} (p : H.Walk v v) (hp : p.IsCycle) :
     ∃ x ∈ union M {w | w ∈ p.support}, ∃ y ∈ union M {w | w ∈ p.support},
       column x = column y ∧ x.2.2 ≠ y.2.2 := by

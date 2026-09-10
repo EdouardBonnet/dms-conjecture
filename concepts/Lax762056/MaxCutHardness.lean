@@ -11,6 +11,8 @@ least $k$ is NP-hard (Garey, Johnson, and Stockmeyer, 1976).
 
 namespace Lax762056.MaxCutHardness
 
-axiom maxCut_hardness : GraphProblems.NPHard GraphProblems.MaxCut
+open GraphProblems
+
+axiom maxCut_hardness : NPHard MaxCut
 
 end Lax762056.MaxCutHardness

@@ -6,10 +6,10 @@ namespace Lax762056Proofs.ReductionBasics
 open Lax762056
 
 theorem column_adj {R : Type*} {c : ℕ} (x y : ColumnGraph.Vertex R c) :
-    (ColumnGraph.graph R c).Adj x y ↔
+    (ColumnGraph.columnGraph R c).Adj x y ↔
     (x.2.1 = y.2.1 ∧ x.2.2 ≠ y.2.2) ∨
     (x.1 = y.1 ∧ (x.2.1.val + 1 = y.2.1.val ∨ y.2.1.val + 1 = x.2.1.val)) := by
-  rw [ColumnGraph.graph, SimpleGraph.fromRel_adj]
+  rw [ColumnGraph.columnGraph, SimpleGraph.fromRel_adj]
   constructor
   · rintro ⟨_, h | h⟩
     · exact h
@@ -42,10 +42,10 @@ theorem lo_lt_hi {n : ℕ} {F : SimpleGraph (Fin n)} (e : Reduction.Edge F) :
     lo e < hi e := e.property.1
 
 theorem adj {n : ℕ} {F : SimpleGraph (Fin n)} (x y : Vtx F) :
-    (Reduction.graph F).Adj x y ↔
+    (Reduction.reductionGraph F).Adj x y ↔
     (col x = col y ∧ side x ≠ side y) ∨
     (row x = row y ∧ (col x + 1 = col y ∨ col y + 1 = col x)) := by
-  change (ColumnGraph.graph _ _).Adj x.val y.val ↔ _
+  change (ColumnGraph.columnGraph _ _).Adj x.val y.val ↔ _
   rw [column_adj]
   simp only [row, col, side, Fin.ext_iff]
 
@@ -83,7 +83,7 @@ theorem side_at_hi {n : ℕ} {F : SimpleGraph (Fin n)} (x : Vtx F)
   · exact hx.2
 
 theorem independent_same_column {n : ℕ} {F : SimpleGraph (Fin n)}
-    {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
+    {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I)
     {x y : Vtx F} (hx : x ∈ I) (hy : y ∈ I) (hcol : col x = col y) :
     side x = side y := by
   by_contra h
@@ -91,7 +91,7 @@ theorem independent_same_column {n : ℕ} {F : SimpleGraph (Fin n)}
   exact hI hx hy hxy ((adj x y).mpr (Or.inl ⟨hcol, h⟩))
 
 theorem independent_separated {n : ℕ} {F : SimpleGraph (Fin n)}
-    {I : Finset (Vtx F)} (hI : (Reduction.graph F).IsIndepSet I)
+    {I : Finset (Vtx F)} (hI : (Reduction.reductionGraph F).IsIndepSet I)
     {x y : Vtx F} (hx : x ∈ I) (hy : y ∈ I) (hrow : row x = row y) :
     col x + 1 ≠ col y := by
   intro hcol

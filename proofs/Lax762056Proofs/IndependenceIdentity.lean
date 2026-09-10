@@ -3,7 +3,7 @@ import Lax762056Proofs.IndependentLower
 
 namespace Lax762056Proofs
 
-open Lax762056
+open Lax762056 MaxCut Reduction
 
 /--
 ---
@@ -15,7 +15,7 @@ from a maximum cut realizes the bound, including the additional vertex
 for each crossing edge.
 -/
 theorem independence_eq_maxCut_offset {n : ℕ} (F : SimpleGraph (Fin n)) :
-    (Reduction.graph F).indepNum = MaxCut.maxCut F + Reduction.offset F :=
+    (reductionGraph F).indepNum = maxCut F + offset F :=
   Nat.le_antisymm IndependentUpper.independence_upper IndependentLower.independence_lower
 
 end Lax762056Proofs

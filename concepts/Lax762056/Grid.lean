@@ -3,19 +3,22 @@ import Lax762056.InducedMinors
 
 /-!
 ---
-title: Excluding the five-by-five grid as an induced minor
+title: Excluded induced grid minors
 type: definition
 ---
-The $5\times5$ grid is the Cartesian product of two five-vertex paths.
-Grid exclusion is the absence of this graph as an induced minor.
+The $k\times k$ square grid is the Cartesian product of two $k$-vertex paths.
+A graph excludes the induced grid of size $k$ if this square grid is not
+an induced minor of the graph.
 -/
 
 namespace Lax762056.Grid
 
-def fiveByFiveGrid : SimpleGraph (Fin 5 × Fin 5) :=
-  (SimpleGraph.pathGraph 5).boxProd (SimpleGraph.pathGraph 5)
+open SimpleGraph InducedMinors
 
-def ExcludesGrid {V : Type*} (G : SimpleGraph V) : Prop :=
-  ¬ InducedMinors.IsInducedMinor fiveByFiveGrid G
+def squareGrid (k : ℕ) : SimpleGraph (Fin k × Fin k) :=
+  (pathGraph k).boxProd (pathGraph k)
+
+def ExcludesInducedGrid (k : ℕ) {V : Type*} (G : SimpleGraph V) : Prop :=
+  ¬ IsInducedMinor (squareGrid k) G
 
 end Lax762056.Grid

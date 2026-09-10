@@ -1,4 +1,4 @@
-# Independent Set with an excluded grid
+# Independent Set without a 5×5 induced grid minor
 
 Maximum Independent Set is NP-hard on graphs excluding the 5-by-5 grid as
 an induced minor. The reduction of Bonnet and Chang maps a graph F to a graph
@@ -9,11 +9,14 @@ G_F in this class with
 ```
 
 The [main theorem](concepts/Lax762056/IndependentSetHardness.lean) states
-`GraphProblems.NPHardOn GraphProblems.IndependentSet Grid.ExcludesGrid`.
+`NPHardOn IndependentSet (ExcludesInducedGrid 5)`, with `GraphProblems` and
+`Grid` open.
 The reductions in `NPHardOn` produce graphs in the specified class on every
 input. [GraphProblems](concepts/Lax762056/GraphProblems.lean) defines the
 decision problems and hardness predicates;
 [GraphEncoding](concepts/Lax762056/GraphEncoding.lean) specifies their encoding.
+The [grid predicate](concepts/Lax762056/Grid.lean) takes the side length as
+a parameter and excludes the corresponding square grid as an induced minor.
 
 The construction and its structural properties are in
 [Reduction](concepts/Lax762056/Reduction.lean),

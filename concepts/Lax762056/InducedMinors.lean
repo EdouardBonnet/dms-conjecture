@@ -14,14 +14,17 @@ definition by vertex deletions and edge contractions.
 
 namespace Lax762056.InducedMinors
 
+open SimpleGraph
+
 structure Model {W V : Type*} (H : SimpleGraph W) (G : SimpleGraph V) where
   branch : W → Set V
-  connected : ∀ v, (G.induce (branch v)).Connected
+  connected : ∀ v, Connected (G.induce (branch v))
   disjoint : ∀ u v, u ≠ v → Disjoint (branch u) (branch v)
   adjacent : ∀ u v, u ≠ v →
     (H.Adj u v ↔ ∃ x ∈ branch u, ∃ y ∈ branch v, G.Adj x y)
 
-def IsInducedMinor {W V : Type*} (H : SimpleGraph W) (G : SimpleGraph V) : Prop :=
+def IsInducedMinor {W V : Type*} (H : SimpleGraph W)
+    (G : SimpleGraph V) : Prop :=
   Nonempty (Model H G)
 
 end Lax762056.InducedMinors

@@ -16,7 +16,9 @@ the sum of these bounds.
 
 namespace Lax762056.IndependenceIdentity
 
+open Reduction MaxCut
+
 axiom independence_eq_maxCut_offset {n : ℕ} (F : SimpleGraph (Fin n)) :
-  (Reduction.graph F).indepNum = MaxCut.maxCut F + Reduction.offset F
+  (reductionGraph F).indepNum = maxCut F + offset F
 
 end Lax762056.IndependenceIdentity

@@ -103,10 +103,10 @@ noncomputable def vertexEquiv {n : ℕ} (F : SimpleGraph (Fin n)) :
 
 noncomputable def reduce (I : Instance) : Instance where
   order := (labels I.graph).length
-  graph := (Reduction.graph I.graph).comap (vertexEquiv I.graph)
+  graph := (Reduction.reductionGraph I.graph).comap (vertexEquiv I.graph)
   threshold := I.threshold + Reduction.offset I.graph
 
-noncomputable def iso (I : Instance) : (reduce I).graph ≃g Reduction.graph I.graph where
+noncomputable def iso (I : Instance) : (reduce I).graph ≃g Reduction.reductionGraph I.graph where
   toEquiv := vertexEquiv I.graph
   map_rel_iff' := Iff.rfl
 

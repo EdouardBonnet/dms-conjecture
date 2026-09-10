@@ -8,7 +8,7 @@ open Lax762056
 variable {R : Type*} {c : ℕ}
 
 abbrev V := ColumnGraph.Vertex R c
-abbrev G := ColumnGraph.graph R c
+abbrev G := ColumnGraph.columnGraph R c
 abbrev column (x : V (R := R) (c := c)) : ℕ := x.2.1.val
 
 def Thin (U : Set (V (R := R) (c := c))) : Prop :=

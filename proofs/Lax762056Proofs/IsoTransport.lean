@@ -32,7 +32,8 @@ def mapModel (e : G ≃g G') (M : InducedMinors.Model H G) : InducedMinors.Model
     · rintro ⟨x, ⟨a, ha, rfl⟩, y, ⟨b, hb, rfl⟩, hab⟩
       exact (M.adjacent u v huv).mpr ⟨a, ha, b, hb, e.map_rel_iff.mp hab⟩
 
-theorem excludes_grid (e : G ≃g G') (h : Grid.ExcludesGrid G') : Grid.ExcludesGrid G := by
+theorem excludes_inducedGrid {k : ℕ} (e : G ≃g G')
+    (h : Grid.ExcludesInducedGrid k G') : Grid.ExcludesInducedGrid k G := by
   rintro ⟨M⟩
   exact h ⟨mapModel e M⟩
 

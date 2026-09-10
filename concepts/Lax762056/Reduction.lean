@@ -17,6 +17,8 @@ The additive offset is $b(F)=2\sum_{uv\in E(F),\,u<v}(v-u)$.
 
 namespace Lax762056.Reduction
 
+open ColumnGraph MaxCut
+
 abbrev Edge {n : ℕ} (F : SimpleGraph (Fin n)) :=
   {e : Fin n × Fin n // e.1 < e.2 ∧ F.Adj e.1 e.2}
 
@@ -34,10 +36,11 @@ def retainedVertices {n : ℕ} (F : SimpleGraph (Fin n)) : Set (Vertex F) :=
     (2 * u < j ∧ j < 2 * v) ∨
     (j = 2 * v ∧ side = !tag)
 
-def graph {n : ℕ} (F : SimpleGraph (Fin n)) : SimpleGraph (retainedVertices F) :=
-  (ColumnGraph.graph (Row F) (2 * n - 1)).induce (retainedVertices F)
+def reductionGraph {n : ℕ} (F : SimpleGraph (Fin n)) :
+    SimpleGraph (retainedVertices F) :=
+  (columnGraph (Row F) (2 * n - 1)).induce (retainedVertices F)
 
 noncomputable def offset {n : ℕ} (F : SimpleGraph (Fin n)) : ℕ :=
-  2 * ∑ e ∈ MaxCut.edges F, (e.2.val - e.1.val)
+  2 * ∑ e ∈ edges F, (e.2.val - e.1.val)
 
 end Lax762056.Reduction

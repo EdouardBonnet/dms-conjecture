@@ -5,7 +5,7 @@ b(F) is twice the sum of the spans of the edges in the vertex ordering.
 Two properties give its correctness: G_F excludes the 5-by-5 grid as an
 induced minor, and its independence number is MaxCut(F) + b(F).
 
-## Grid exclusion
+## Excluding the induced grid minor
 
 In a row and column graph, a connected vertex set containing at most one
 side of each column lies within a single row. Every cycle, including one

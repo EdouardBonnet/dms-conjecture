@@ -133,9 +133,9 @@ theorem value_adjacent {n k : ℕ} (F : SimpleGraph (Fin n)) (a : Fin k → Fin 
 
 theorem retained_adjacent {n : ℕ} {F : SimpleGraph (Fin n)} (x y : EncodedReduction.Raw n)
     (hx : EncodedReduction.Valid F x) (hy : EncodedReduction.Valid F y) :
-    (Reduction.graph F).Adj (EncodedReduction.retain x hx) (EncodedReduction.retain y hy) ↔
+    (Reduction.reductionGraph F).Adj (EncodedReduction.retain x hx) (EncodedReduction.retain y hy) ↔
       rawAdjacent x y := by
-  change (ColumnGraph.graph (Reduction.Row F) (2 * n - 1)).Adj _ _ ↔ _
+  change (ColumnGraph.columnGraph (Reduction.Row F) (2 * n - 1)).Adj _ _ ↔ _
   rw [ReductionBasics.column_adj]
   simp [EncodedReduction.retain, rawAdjacent, Prod.ext_iff, Subtype.ext_iff, Fin.ext_iff, and_assoc]
 

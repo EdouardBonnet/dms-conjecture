@@ -2,26 +2,27 @@ import Mathlib.Combinatorics.SimpleGraph.Paths
 
 /-!
 ---
-title: Three mutually avoiding cycles
+title: Asteroidal triples of cycles
 type: definition
 ---
-A graph has three mutually avoiding cycles if it contains three vertex-disjoint,
-pairwise nonadjacent cycles, and between any two there is a path avoiding
-the closed neighborhood of the third. A walk suffices in the formal
-definition, since deleting repeated portions gives a path with the same
-avoidance property. This is the obstruction used in the proof of Claim 9.
+An asteroidal triple of cycles consists of three vertex-disjoint, pairwise
+nonadjacent cycles such that every pair is joined by a path avoiding the
+closed neighborhood of the third.
 -/
 
 namespace Lax762056.AsteroidalCycles
 
-def HasTriple {V : Type*} (G : SimpleGraph V) : Prop :=
+def AvoidsClosedNeighborhood {V : Type*} (G : SimpleGraph V) (S T : Set V) : Prop :=
+  ∀ x ∈ S, ∀ y ∈ T, x ≠ y ∧ ¬ G.Adj x y
+
+def HasAsteroidalTriple {V : Type*} (G : SimpleGraph V) : Prop :=
   ∃ (base : Fin 3 → V) (cycle : ∀ i, G.Walk (base i) (base i)),
     (∀ i, (cycle i).IsCycle) ∧
-    (∀ i j, i ≠ j → ∀ u ∈ (cycle i).support, ∀ v ∈ (cycle j).support,
-      u ≠ v ∧ ¬ G.Adj u v) ∧
+    (Pairwise fun i j => AvoidsClosedNeighborhood G
+      {v | v ∈ (cycle i).support} {v | v ∈ (cycle j).support}) ∧
     (∀ i j k, i ≠ j → i ≠ k → j ≠ k →
       ∃ u ∈ (cycle i).support, ∃ v ∈ (cycle j).support,
-        ∃ p : G.Walk u v, ∀ x ∈ p.support, ∀ y ∈ (cycle k).support,
-          x ≠ y ∧ ¬ G.Adj x y)
+        ∃ p : G.Path u v, AvoidsClosedNeighborhood G
+          {x | x ∈ p.val.support} {x | x ∈ (cycle k).support})
 
 end Lax762056.AsteroidalCycles

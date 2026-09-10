@@ -50,16 +50,16 @@ theorem nodup_labels {n : ℕ} (F : SimpleGraph (Fin n)) : (labels F).Nodup := b
   classical
   exact (nodup_ambient n).filter _
 
-def forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.kept F)) : Raw n :=
+def forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.retainedVertices F)) : Raw n :=
   (x.val.1.1.val.1, x.val.1.1.val.2, x.val.1.2,
     ⟨x.val.2.1.val / 2, by have h := x.val.2.1.isLt; omega⟩,
     decide (x.val.2.1.val % 2 = 1), x.val.2.2)
 
-theorem column_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.kept F)) :
+theorem column_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.retainedVertices F)) :
     column (forget x) = x.val.2.1.val := by
   by_cases h : x.val.2.1.val % 2 = 1 <;> simp [column, forget, h] <;> omega
 
-theorem valid_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.kept F)) :
+theorem valid_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.retainedVertices F)) :
     Valid F (forget x) := by
   refine ⟨x.val.1.1.property, ?_⟩
   simp only [column_forget]
@@ -72,7 +72,7 @@ theorem column_lt {n : ℕ} {F : SimpleGraph (Fin n)} {x : Raw n} (h : Valid F x
   rcases h.2 with ⟨ha, _⟩ | ⟨_, hb⟩ | ⟨ha, _⟩ <;> omega
 
 def retain {n : ℕ} {F : SimpleGraph (Fin n)} (x : Raw n) (h : Valid F x) :
-    ↥(Reduction.kept F) :=
+    ↥(Reduction.retainedVertices F) :=
   ⟨((⟨(x.1, x.2.1), h.1⟩, x.2.2.1), ⟨column x, column_lt h⟩, x.2.2.2.2.2), h.2⟩
 
 theorem forget_retain {n : ℕ} {F : SimpleGraph (Fin n)} (x : Raw n) (h : Valid F x) :
@@ -80,7 +80,7 @@ theorem forget_retain {n : ℕ} {F : SimpleGraph (Fin n)} (x : Raw n) (h : Valid
   rcases x with ⟨u, v, t, w, p, s⟩
   cases p <;> simp [forget, retain, column, Nat.add_div]
 
-theorem retain_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.kept F)) :
+theorem retain_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.retainedVertices F)) :
     retain (forget x) (valid_forget x) = x := by
   apply Subtype.ext
   apply Prod.ext
@@ -91,14 +91,14 @@ theorem retain_forget {n : ℕ} {F : SimpleGraph (Fin n)} (x : ↥(Reduction.kep
     · rfl
 
 noncomputable def retainedEquiv {n : ℕ} (F : SimpleGraph (Fin n)) :
-    {x // x ∈ labels F} ≃ ↥(Reduction.kept F) where
+    {x // x ∈ labels F} ≃ ↥(Reduction.retainedVertices F) where
   toFun x := retain x.val ((mem_labels F x.val).mp x.property)
   invFun x := ⟨forget x, (mem_labels F (forget x)).mpr (valid_forget x)⟩
   left_inv x := by apply Subtype.ext; exact forget_retain _ _
   right_inv x := retain_forget x
 
 noncomputable def vertexEquiv {n : ℕ} (F : SimpleGraph (Fin n)) :
-    Fin (labels F).length ≃ ↥(Reduction.kept F) :=
+    Fin (labels F).length ≃ ↥(Reduction.retainedVertices F) :=
   (List.Nodup.getEquiv (labels F) (nodup_labels F)).trans (retainedEquiv F)
 
 noncomputable def reduce (I : Instance) : Instance where

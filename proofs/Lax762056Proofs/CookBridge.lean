@@ -43,8 +43,8 @@ theorem tseitin_short (C : Circuits.Circuit) : ShortCNF.Short (formula (Tseitin.
   · obtain ⟨⟨g, i⟩, _, hE⟩ := List.mem_flatMap.mp hE
     simpa using gate_short i g E hE
 
-/-- The published circuit compiler already emits nonempty clauses of size
-at most three, so its output can enter the Max Cut machine directly. -/
+/-- Compose the circuit-to-CNF reduction with the Max Cut construction;
+every Tseitin clause has between one and three literals. -/
 theorem compile (V : Lax434930.PolynomialTime.Language)
     (hV : V ∈ Lax434930.PolynomialTime.P) (p : Polynomial ℕ) :
     ∃ f : Lax434930.PolynomialTime.Word → Lax762056.GraphEncoding.Instance,

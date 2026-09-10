@@ -2,8 +2,7 @@ import Mathlib.Computability.TuringMachine.Computable
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Tactic
 
-/-! Bounds for the actual bundled machines used in the definitions of P and NP.
-These arguments do not use mathlib's unfinished polynomial-time composition lemma. -/
+/-! Output-length bounds and sequential composition of finite Turing-machine runs. -/
 
 namespace Lax762056Proofs.TM2Bounds
 

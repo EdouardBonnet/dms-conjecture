@@ -11,8 +11,7 @@ bibEntries:
     @unpublished{BonnetChang,
       author = {Édouard Bonnet and Yeonsu Chang},
       title = {Max Independent Set Remains {NP}-hard when Excluding a Planar Induced Minor},
-      year = {2026},
-      note = {Manuscript supplied as main.pdf, Theorem 5 and Claims 9--10}
+      year = {2026}
     }
   - |
     @article{GareyJohnsonStockmeyer1976,

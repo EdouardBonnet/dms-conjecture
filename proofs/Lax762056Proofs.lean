@@ -15,7 +15,7 @@ import Lax762056Proofs.TM2Transfer
 import Lax762056Proofs.PolynomialComposition
 import Lax762056Proofs.EncodedReduction
 import Lax762056Proofs.IsoTransport
-import Lax762056Proofs.Theorem5
+import Lax762056Proofs.IndependentSetHardness
 import Lax762056Proofs.CutScores
 import Lax762056Proofs.SubdividedCut
 import Lax762056Proofs.NAEMaxCut
@@ -54,4 +54,4 @@ import Lax762056Proofs.CutTests
 import Lax762056Proofs.CutEnumeration
 import Lax762056Proofs.CutMachine
 import Lax762056Proofs.CookBridge
-import Lax762056Proofs.MaxCutHard
+import Lax762056Proofs.MaxCutHardness

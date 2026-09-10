@@ -90,8 +90,8 @@ theorem program_executes (q : Q) (I : Instance) :
     Polynomial.eval_X, Polynomial.eval_ofNat]
   omega
 
-/-- Any fixed bounded query on the input graph can output its bits followed
-by the original unary threshold, in the archive's exact polynomial-time model. -/
+/-- A fixed bounded query, followed by the input threshold, is computable
+in polynomial time. -/
 theorem polynomial_time (q : Q) :
     Nonempty (Turing.TM2ComputableInPolyTime encode id (render q)) :=
   program_polytime (program q) .input .output initial encode id (render q) (time q) (program_executes q)

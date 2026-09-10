@@ -26,7 +26,7 @@ theorem column_adj {R : Type*} {c : ℕ} (x y : ColumnGraph.Vertex R c) :
     · omega
     · omega
 
-abbrev Vtx {n : ℕ} (F : SimpleGraph (Fin n)) := ↥(Reduction.kept F)
+abbrev Vtx {n : ℕ} (F : SimpleGraph (Fin n)) := ↥(Reduction.retainedVertices F)
 
 noncomputable instance edgeFintype {n : ℕ} (F : SimpleGraph (Fin n)) :
     Fintype (Reduction.Edge F) := Fintype.ofFinite _

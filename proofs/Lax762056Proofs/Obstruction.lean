@@ -74,15 +74,15 @@ theorem order_three (f : Fin 3 → ℕ)
 
 /--
 ---
-conclusion: Lax762056.CycleObstruction.excludes_triple
+conclusion: Lax762056.CycleObstruction.avoidingCycles_obstruction
 ---
 Each cycle's branch sets contain opposite sides of a column. The three
 columns are distinct. The middle column is contained in the middle cycle's
 closed neighborhood and separates the other two cycles, contradicting their
 avoiding path.
 -/
-theorem excludes_triple (R W : Type*) (c : ℕ) (H : SimpleGraph W)
-    (hH : AsteroidalCycles.HasTriple H) :
+theorem avoidingCycles_obstruction (R W : Type*) (c : ℕ) (H : SimpleGraph W)
+    (hH : AsteroidalCycles.HasAsteroidalTriple H) :
     ¬ InducedMinors.IsInducedMinor H (ColumnGraph.graph R c) := by
   classical
   rintro ⟨M⟩
@@ -91,7 +91,7 @@ theorem excludes_triple (R W : Type*) (c : ℕ) (H : SimpleGraph W)
   have hUc (i) : ((ColumnGraph.graph R c).induce (U i)).Connected :=
     union_connected M (cycle i).connected_induce_support
   have hUs (i j) (hij : i ≠ j) : Separated (ColumnGraph.graph R c) (U i) (U j) :=
-    union_separated M (hsep i j hij)
+    union_separated M (hsep hij)
   have hpairs (i) : ∃ x ∈ U i, ∃ y ∈ U i,
       column x = column y ∧ x.2.2 ≠ y.2.2 :=
     CyclePairs.cycle_pair M (cycle i) (hcycle i)
@@ -109,6 +109,7 @@ theorem excludes_triple (R W : Type*) (c : ℕ) (H : SimpleGraph W)
   have hleft := connected_left (hUc a) hnoa (hx a) hab
   have hright := connected_right (hUc d) hnod (hx d) hbd
   obtain ⟨u, hu, v, hv, p, hp⟩ := hpaths a d b had' hab' hbd'.symm
+  rcases p with ⟨p, _⟩
   let P := union M {w | w ∈ p.support}
   have hPc : ((ColumnGraph.graph R c).induce P).Connected :=
     union_connected M p.connected_induce_support

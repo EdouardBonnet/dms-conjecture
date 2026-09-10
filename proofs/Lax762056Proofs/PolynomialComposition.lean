@@ -13,9 +13,7 @@ theorem eval_mono (p : Polynomial ℕ) {m n : ℕ} (h : m ≤ n) : p.eval m ≤ 
       simp only [eval_monomial]
       exact Nat.mul_le_mul_left c (Nat.pow_le_pow_left h k)
 
-/-- Polynomial-time functions compose when their common encoding is binary.
-This constructs and verifies the composed finite machine, rather than invoking
-the `proof_wanted` declaration in mathlib. -/
+/-- Composition of polynomial-time functions with a binary intermediate encoding. -/
 theorem comp {α β γ αΓ γΓ : Type} {eα : α → List αΓ} {eβ : β → List Bool}
     {eγ : γ → List γΓ} {f : α → β} {g : β → γ}
     (h₁ : TM2ComputableInPolyTime eα eβ f) (h₂ : TM2ComputableInPolyTime eβ eγ g) :

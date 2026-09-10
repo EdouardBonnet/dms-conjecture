@@ -23,15 +23,14 @@ theorem reductionQuery_encoding (I : Instance) :
 
 /--
 ---
-conclusion: Lax762056.ReductionTime.polynomial_time
+conclusion: Lax762056.ReductionTime.reduction_polynomial_time
 ---
-A fixed finite stack machine enumerates the retained vertices, emits their
-adjacency matrix, and adds the offset to the unary threshold. Its actual
-running time is bounded using the verified bounded-query compiler.
+Enumerate the retained vertices and their adjacency matrix, then add the
+offset to the threshold. The enumeration and adjacency tests take polynomial time.
 -/
 theorem reduction_polynomial_time :
     ∃ f : Instance → Instance,
-      Nonempty (Turing.TM2ComputableInPolyTime encode encode f) ∧
+      GraphEncoding.PolynomialTime f ∧
       ∀ I, Nonempty ((f I).graph ≃g Reduction.graph I.graph) ∧
         (f I).threshold = I.threshold + Reduction.offset I.graph := by
   obtain ⟨machine⟩ := GraphQuery.polynomial_time reductionQuery

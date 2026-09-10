@@ -12,9 +12,7 @@ columns. Keep only columns from $2u$ through $2v$. In row $(uv,t)$ keep
 only side $t$ at column $2u$ and side $1-t$ at column $2v$; keep both sides
 at every intervening column. The resulting induced subgraph is $G_F$.
 
-Column $2j$ here is column $2(j+1)-1$ in the paper's indexing. Labeling rows
-by their edges avoids making an arbitrary choice of an edge ordering. The
-additive offset is $b(F)=2\sum_{uv\in E(F),\,u<v}(v-u)$.
+The additive offset is $b(F)=2\sum_{uv\in E(F),\,u<v}(v-u)$.
 -/
 
 namespace Lax762056.Reduction
@@ -27,18 +25,17 @@ abbrev Row {n : ℕ} (F : SimpleGraph (Fin n)) := Edge F × Bool
 abbrev Vertex {n : ℕ} (F : SimpleGraph (Fin n)) :=
   ColumnGraph.Vertex (Row F) (2 * n - 1)
 
-def kept {n : ℕ} (F : SimpleGraph (Fin n)) : Set (Vertex F) :=
-  {x | let u := x.1.1.val.1.val
-       let v := x.1.1.val.2.val
-       let t := x.1.2
-       let j := x.2.1.val
-       let s := x.2.2
-       (j = 2 * u ∧ s = t) ∨
-       (2 * u < j ∧ j < 2 * v) ∨
-       (j = 2 * v ∧ s = !t)}
+def retainedVertices {n : ℕ} (F : SimpleGraph (Fin n)) : Set (Vertex F) :=
+  fun ((edge, tag), column, side) =>
+    let u := edge.val.1.val
+    let v := edge.val.2.val
+    let j := column.val
+    (j = 2 * u ∧ side = tag) ∨
+    (2 * u < j ∧ j < 2 * v) ∨
+    (j = 2 * v ∧ side = !tag)
 
-def graph {n : ℕ} (F : SimpleGraph (Fin n)) : SimpleGraph (kept F) :=
-  (ColumnGraph.graph (Row F) (2 * n - 1)).induce (kept F)
+def graph {n : ℕ} (F : SimpleGraph (Fin n)) : SimpleGraph (retainedVertices F) :=
+  (ColumnGraph.graph (Row F) (2 * n - 1)).induce (retainedVertices F)
 
 noncomputable def offset {n : ℕ} (F : SimpleGraph (Fin n)) : ℕ :=
   2 * ∑ e ∈ MaxCut.edges F, (e.2.val - e.1.val)

@@ -1,16 +1,15 @@
 import Lax762056.IndependentSetHardness
 import Lax762056.MaxCutHardness
 import Lax762056.ReductionTime
-import Lax762056Proofs.GridExclusion
-import Lax762056Proofs.IndependenceIdentity
+import Lax762056.GridExclusion
+import Lax762056.IndependenceIdentity
 import Lax762056Proofs.IsoTransport
 import Lax762056Proofs.PolynomialComposition
-import Lax762056Proofs.ReductionTime
-import Lax762056Proofs.MaxCutHardness
 
 namespace Lax762056Proofs
 
 open Lax762056 GraphProblems Grid
+open MaxCutHardness ReductionTime GridExclusion IndependenceIdentity
 
 /--
 ---

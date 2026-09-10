@@ -4,9 +4,16 @@ Local Lax submission **lax-762056**, preparing **Theorem 5** of Édouard Bonnet
 and Yeonsu Chang's supplied manuscript, *Max Independent Set Remains NP-hard
 when Excluding a Planar Induced Minor*.
 
-**Status: concept draft, with 13 concepts and 8 open statements.** A successful Lax build
-checks that the definitions and statements meet archive rules; it does not
-prove the statements. The proof package is intentionally empty at this stage.
+**Status: Claims 9 and 10 have complete Lean proofs; the full NP-hardness
+theorem remains open.** Of the eight statements in the 13 concepts, five now
+have closed proofs. The three remaining statements concern Max Cut hardness,
+polynomial-time computation of the encoded reduction, and Theorem 5 itself.
+
+The closed proof of [Claim 9](proofs/Lax762056Proofs/GridExclusion.lean) uses
+the explicit three-cycle grid witness and the general obstruction for column
+graphs. The closed proof of [Claim 10](proofs/Lax762056Proofs/IndependenceIdentity.lean)
+combines an upper bound for every independent set with an explicit independent
+set constructed from a maximum cut. Neither proof assumes a concept statement.
 
 The main statement is in
 [Theorem5.lean](concepts/Lax762056/Theorem5.lean). It says that for every
@@ -57,15 +64,14 @@ submitted, add its concept package to the proof lakefile at its archived
 source commit, and use its NP-completeness theorem to prove `MaxCutHard.np_hard`.
 The main statement and graph definitions will not need to change.
 
-Validation with `lax build . --replay` passed, including kernel replay and
-inspection of all 13 concepts. The only reported warnings concern the two
-complexity dependencies being archive drafts. A separate finite sanity check
-confirmed the reduction's identity and vertex count for every graph on at
-most four labeled vertices (76 graphs), as well as the grid cycles and
-avoiding paths specified in the proof plan. These checks do not close any
-of the eight proof obligations.
+Run `lax build . --replay` to validate the definitions, inspect the proof
+assumptions, and replay the proofs in the kernel. The two complexity
+dependencies are archive drafts. A separate finite sanity check also confirmed
+the reduction's identity and vertex count for every graph on at most four
+labeled vertices (76 graphs). The general Claims 9 and 10 are proved in Lean,
+independently of that finite check.
 
-Run `lax build . --replay` from this directory. The scaffold uses the default
+The scaffold uses the default
 archive environment, Lean 4.30.0 and mathlib commit
 `c5ea00351c28e24afc9f0f84379aa41082b1188f`. Generated build files are ignored.
 See [PROOF_PLAN.md](PROOF_PLAN.md) for the remaining work and dependency order.

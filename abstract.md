@@ -12,6 +12,9 @@ generalization unless $\mathrm{P}=\mathrm{NP}$. The quasipolynomial-time
 conjecture of Gartland–Lokshtanov and Korhonen would imply
 $\mathrm{NP}\subseteq\mathrm{QP}$.
 
-This is a concept draft: the proof obligations are open. The planned proof of
-the Max Cut hardness prerequisite will use the Cook–Levin submission currently
-in preparation. The ETH lower bound in Corollary 6 is outside this submission.
+The graph-theoretic proofs of Claims 9 and 10 are complete in Lean, including
+the cycle obstruction and the explicit independent-set construction. The full
+NP-hardness theorem remains open: the encoded reduction's polynomial running
+time and the Max Cut hardness prerequisite still require proofs. The latter
+will use the Cook–Levin submission currently in preparation. The ETH lower
+bound in Corollary 6 is outside this submission.

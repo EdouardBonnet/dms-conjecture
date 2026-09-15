@@ -1,8 +1,8 @@
-import Lax979537Proofs.StackCompare
+import Lax762056Proofs.QueryCompiler.StackCompare
 
 namespace Lax762056Proofs.StackEqual
 
-open Lax979537Proofs StackProgram StackTransfer StackCompare
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackCompare
 
 variable {K Aux : Type} [DecidableEq K]
 

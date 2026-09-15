@@ -2,7 +2,7 @@ import Lax762056Proofs.CNFSource
 
 namespace Lax762056Proofs.CNFWriter
 
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 open QueryProgram (LoopWork written written_clean written_represents written_append)
 
 inductive Query : ℕ → Type

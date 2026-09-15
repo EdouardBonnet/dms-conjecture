@@ -3,7 +3,7 @@ import Lax762056Proofs.QueryLoop
 
 namespace Lax762056Proofs.CNFSource
 
-open Lax979537.OrderedStructures Lax979537Proofs StackBoolean
+open Lax762056Proofs.QueryDefinitions.OrderedStructures Lax762056Proofs.QueryCompiler StackBoolean
 
 /-- The input word itself, viewed as one unary relation on its positions. -/
 def source (F : ShortCNF.Formula) : OrderedStructure [1] where
@@ -14,10 +14,10 @@ def source (F : ShortCNF.Formula) : OrderedStructure [1] where
     exact fun v => (ShortCNF.encode F).get (v 0)
 
 theorem source_table (F : ShortCNF.Formula) (r : Fin [1].length) :
-    (Lax979537.StructureEncoding.tuples (ShortCNF.encode F).length ([1].get r)).map
+    (Lax762056Proofs.QueryDefinitions.StructureEncoding.tuples (ShortCNF.encode F).length ([1].get r)).map
       ((source F).relation r) = ShortCNF.encode F := by
   fin_cases r
-  simp [source, Lax979537.StructureEncoding.tuples, List.map_flatMap]
+  simp [source, Lax762056Proofs.QueryDefinitions.StructureEncoding.tuples, List.map_flatMap]
   simp only [← List.map_eq_flatMap]
   exact List.map_get_finRange _
 

@@ -2,7 +2,7 @@ import Lax762056Proofs.QueryLoop
 
 namespace Lax762056Proofs.QueryProgram
 
-open Lax979537Proofs StackProgram
+open Lax762056Proofs.QueryCompiler StackProgram
 
 theorem execution_length {K σ : Type} {Γ : K → Type} [DecidableEq K]
     {p : Program Γ σ} {s t : Store Γ σ} {c : ℕ} (h : Executes p s t c) (key : K) :

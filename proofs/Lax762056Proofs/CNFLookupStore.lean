@@ -2,7 +2,7 @@ import Lax762056Proofs.CNFLookup
 
 namespace Lax762056Proofs.CNFLookup
 
-open Lax979537Proofs StackProgram StackTransfer
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer
 
 variable {K Aux : Type} [DecidableEq K]
 

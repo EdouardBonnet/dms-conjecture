@@ -1,11 +1,13 @@
 import Lax762056Proofs.CNFLookup
 import Lax762056Proofs.StackEqual
 import Lax762056Proofs.StackCount
-import Lax979537Proofs.StackBoolean
+import Lax762056Proofs.QueryCompiler.StackBoolean
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax762056Proofs.CNFAtom
 
-open Lax979537Proofs StackProgram StackTransfer StackBoolean
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackBoolean
 
 inductive Test (k : ℕ)
   | constant (b : Bool)

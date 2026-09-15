@@ -3,7 +3,7 @@ import Lax762056Proofs.QueryBounds
 
 namespace Lax762056Proofs.CNFMachine
 
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 
 abbrev Q := CNFWriter.Query 0
 

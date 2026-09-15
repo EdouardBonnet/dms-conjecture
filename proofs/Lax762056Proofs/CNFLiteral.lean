@@ -1,10 +1,10 @@
 import Lax762056Proofs.CNFPrefix
-import Lax979537Proofs.StackUnary
-import Lax979537Proofs.StackClear
+import Lax762056Proofs.QueryCompiler.StackUnary
+import Lax762056Proofs.QueryCompiler.StackClear
 
 namespace Lax762056Proofs.CNFLiteral
 
-open Lax979537Proofs StackProgram StackTransfer
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer
 
 variable {K Aux : Type} [DecidableEq K]
 

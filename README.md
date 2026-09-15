@@ -25,10 +25,16 @@ The construction and its structural properties are in
 [IndependenceIdentity](concepts/Lax762056/IndependenceIdentity.lean).
 [PROOFS.md](PROOFS.md) describes the proof structure.
 
-The complexity definitions come from lax-434930 and lax-554803. Max Cut
-hardness uses the circuit compiler and Tseitin equivalence from lax-429075.
-The polynomial-time constructions use the finite stack-program compiler
-from lax-979537. Dependency revisions are pinned in the Lake configuration.
+The complexity definitions come from [lax-434930](https://laxarchive.org/lax-434930/). Max Cut
+hardness uses the circuit compiler and Tseitin equivalence from [lax-429075](https://laxarchive.org/lax-429075/).
+Both dependencies are registered on Mathlib 4.33.0. The polynomial-time constructions
+include the required formula-evaluation and stack-program routines from
+[lax-979537](https://laxarchive.org/lax-979537/) locally under `QueryDefinitions`
+and `QueryCompiler`, with compatibility fixes for Lean 4.33.0. These sources
+come from Szymon Toruńczyk and Codex 6's Immerman–Vardi proof package at
+commit `82ef67e68fab884dc4cff117a1b871567bdaaafd`. Its abstract result axioms
+are omitted from the private definitions; the corresponding checked proofs
+are included. Dependency revisions are pinned in the Lake configuration.
 
 Build and replay with:
 
@@ -36,7 +42,10 @@ Build and replay with:
 lax build . --replay
 ```
 
-Lean version: 4.30.0. Mathlib revision:
-`c5ea00351c28e24afc9f0f84379aa41082b1188f`.
+Lean version: 4.33.0. Mathlib revision:
+`db584cd6d46c92f209a44c0f1c829460d327499d`.
+
+The annotated paper is in [paper/main.tex](paper/main.tex). Its mathematical
+text, proofs, authors, and figures are preserved.
 
 [Archive entry](https://laxarchive.org/lax-762056/).

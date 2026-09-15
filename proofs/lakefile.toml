@@ -7,7 +7,7 @@ autoImplicit = false
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
-rev = "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+rev = "db584cd6d46c92f209a44c0f1c829460d327499d"
 
 [[require]]
 name = "Lax762056"
@@ -16,20 +16,14 @@ path = "../concepts"
 [[require]]
 name = "Lax434930"
 git = "https://github.com/EdouardBonnet/classical-complexity"
-rev = "026a662d6c203952e4fc6c6023a3c1adf7f0bc3e"
+rev = "0c0840319318215fd7b36a9a822b81ce55cf6941"
 subDir = "concepts"
-
-[[lean_lib]]
-name = "Lax762056Proofs"
-
-[[require]]
-name = "Lax979537Proofs"
-git = "https://github.com/szymtor/immerman-vardi"
-rev = "82ef67e68fab884dc4cff117a1b871567bdaaafd"
-subDir = "proofs"
 
 [[require]]
 name = "Lax429075"
 git = "https://github.com/EdouardBonnet/cook-levin"
-rev = "3481a9cc2e2693124717e398f443f8053629d730"
+rev = "905f2da2698d5b38002676f74632aa716e731389"
 subDir = "concepts"
+
+[[lean_lib]]
+name = "Lax762056Proofs"

@@ -2,8 +2,8 @@ import Lax762056Proofs.QueryProgram
 
 namespace Lax762056Proofs.QueryProgram
 
-open Lax979537.OrderedStructures Lax979537.FixedPointSyntax
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056Proofs.QueryDefinitions.OrderedStructures Lax762056Proofs.QueryDefinitions.FixedPointSyntax
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 
 variable {K Aux : Type} [DecidableEq K]
 

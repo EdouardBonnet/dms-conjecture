@@ -3,7 +3,7 @@ import Lax762056Proofs.CNFLookupStore
 
 namespace Lax762056Proofs.CNFAtom
 
-open Lax979537Proofs StackProgram StackTransfer StackBoolean
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackBoolean
 
 variable {K Aux : Type} [DecidableEq K]
 

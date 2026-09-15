@@ -1,6 +1,8 @@
 import Lax762056.ReductionTime
 import Lax762056Proofs.GraphOffset
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs
 
 open Lax762056 GraphEncoding Reduction
@@ -36,7 +38,7 @@ theorem reduction_polynomial_time :
   obtain ⟨machine⟩ := GraphQuery.polynomial_time reductionQuery
   refine ⟨EncodedReduction.reduce, ⟨{ machine with outputsFun := ?_ }⟩, ?_⟩
   · intro I
-    simpa only [id_eq, reductionQuery_encoding] using machine.outputsFun I
+    simpa only [id_eq, reductionQuery_encoding] using! machine.outputsFun I
   · intro I
     exact ⟨⟨EncodedReduction.iso I⟩, EncodedReduction.threshold I⟩
 

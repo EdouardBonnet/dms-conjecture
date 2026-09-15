@@ -1,5 +1,7 @@
 import Lax762056Proofs.CutVertices
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.CutEndpoints
 
 open CutVertices

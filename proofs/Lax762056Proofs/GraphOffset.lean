@@ -8,7 +8,7 @@ open scoped Classical BigOperators
 
 namespace Lax762056Proofs.GraphOffset
 
-open Lax762056 Lax979537Proofs
+open Lax762056 Lax762056Proofs.QueryCompiler
 open QueryProgram GraphFormulas GraphEnumeration
 
 def spanTest : Formula 3 :=

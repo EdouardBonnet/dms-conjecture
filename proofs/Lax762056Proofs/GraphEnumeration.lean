@@ -7,7 +7,7 @@ open scoped Classical
 
 namespace Lax762056Proofs.GraphEnumeration
 
-open Lax762056 Lax979537Proofs
+open Lax762056 Lax762056Proofs.QueryCompiler
 open QueryProgram GraphFormulas EncodedReduction
 
 theorem word_emit {n k : ℕ} (F : SimpleGraph (Fin n)) (a : Fin k → Fin n)

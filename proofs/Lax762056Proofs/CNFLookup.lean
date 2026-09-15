@@ -2,7 +2,7 @@ import Lax762056Proofs.CNFHead
 
 namespace Lax762056Proofs.CNFLookup
 
-open Lax979537Proofs StackProgram StackTransfer StackRepeat
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackRepeat
 open CNFPrefix CNFLiteral
 
 variable {K Aux : Type} [DecidableEq K]

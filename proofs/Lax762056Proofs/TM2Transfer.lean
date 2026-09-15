@@ -100,7 +100,7 @@ theorem transfer_run (xs : List (M.Γ M.k₁)) :
   simp only [List.length_reverse, List.length_map, List.reverse_reverse, List.append_nil] at h₂
   have h := append_run (machine M N out inp).step h₁ h₂
   rw [left_halt]
-  simpa only [show xs.length + 1 + (xs.length + 1) = 2 * xs.length + 2 by omega] using h
+  simpa only [show xs.length + 1 + (xs.length + 1) = 2 * xs.length + 2 by omega] using! h
 
 theorem initial_eq (xs : List (M.Γ M.k₀)) :
     initList (machine M N out inp) xs = leftCfg M N (initList M xs) := by

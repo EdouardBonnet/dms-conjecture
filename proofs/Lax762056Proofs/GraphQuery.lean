@@ -1,13 +1,13 @@
 import Lax762056Proofs.QueryBounds
 import Lax762056Proofs.EncodingFacts
 import Lax762056Proofs.PolynomialComposition
-import Lax979537Proofs.StackUnary
-import Lax979537Proofs.StackReadTable
+import Lax762056Proofs.QueryCompiler.StackUnary
+import Lax762056Proofs.QueryCompiler.StackReadTable
 
 namespace Lax762056Proofs.GraphQuery
 
-open Lax762056 GraphEncoding Lax979537.OrderedStructures Lax979537.FixedPointSyntax
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056 GraphEncoding Lax762056Proofs.QueryDefinitions.OrderedStructures Lax762056Proofs.QueryDefinitions.FixedPointSyntax
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 
 abbrev Q := QueryProgram.Query [2] 0
 
@@ -30,10 +30,10 @@ noncomputable def source {n : ℕ} (F : SimpleGraph (Fin n)) : OrderedStructure 
     exact fun a => decide (F.Adj (a 0) (a 1))
 
 theorem source_table {n : ℕ} (F : SimpleGraph (Fin n)) (r : Symbol [2]) :
-    (Lax979537.StructureEncoding.tuples n ([2].get r)).map ((source F).relation r) = matrix F := by
+    (Lax762056Proofs.QueryDefinitions.StructureEncoding.tuples n ([2].get r)).map ((source F).relation r) = matrix F := by
   classical
   fin_cases r
-  simp [source, matrix, Lax979537.StructureEncoding.tuples, List.map_flatMap, List.map_map,
+  simp [source, matrix, Lax762056Proofs.QueryDefinitions.StructureEncoding.tuples, List.map_flatMap, List.map_map,
     Function.comp_def]
   simp only [← List.map_eq_flatMap]
 

@@ -4,6 +4,8 @@ import Lax762056Proofs.CNFMachine
 noncomputable section
 open scoped Classical
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.CutTests
 
 open CutVertices CNFAtom
@@ -110,7 +112,7 @@ theorem occurrenceTest_correct {k : ℕ} (F : ShortCNF.Formula)
     (v : Fin k → Fin (ShortCNF.encode F).length) (x y : Occurrence k) :
     value (occurrenceTest x y) F v = decide (mapOccurrence v x = mapOccurrence v y) := by
   rcases x with x | ⟨i, b, e⟩ <;> rcases y with y | ⟨j, d, f⟩
-  · simpa [occurrenceTest, mapOccurrence] using variableTest_correct F v x y
+  · simpa [occurrenceTest, mapOccurrence] using! variableTest_correct F v x y
   · simp [occurrenceTest, value, mapOccurrence]
   · simp [occurrenceTest, value, mapOccurrence]
   · by_cases h : b = d ∧ e = f

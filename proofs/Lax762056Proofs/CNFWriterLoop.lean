@@ -1,8 +1,10 @@
 import Lax762056Proofs.CNFWriter
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.CNFWriter
 
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 open QueryProgram (LoopWork written payload written_pack payload_start fold_prepend_reverse)
 
 variable {K Aux : Type} [DecidableEq K]
@@ -23,13 +25,13 @@ theorem correct_forEach {k : ℕ} {p : Query (k + 1)}
       Ne.symm (hf .tmp).1] using hprivate
   have hbc : ∀ acc, (base acc).stk (work .counter) = [] := by
     intro acc
-    simpa [base, payload, StackTuples.setStack, result, hw] using hc .counter
+    simpa [base, payload, StackTuples.setStack, result, hw] using! hc .counter
   have hbd : ∀ acc, (base acc).stk (work .coordinate) = [] := by
     intro acc
-    simpa [base, payload, StackTuples.setStack, result, hw] using hc .coordinate
+    simpa [base, payload, StackTuples.setStack, result, hw] using! hc .coordinate
   have hbt : ∀ acc, (base acc).stk (work .tmp) = [] := by
     intro acc
-    simpa [base, payload, StackTuples.setStack, result, hw] using hc .tmp
+    simpa [base, payload, StackTuples.setStack, result, hw] using! hc .tmp
   have hbody : ∀ i, i < (ShortCNF.encode F).length → ∀ acc rem scratch,
       ∃ c scratch', c ≤ (cost p).eval (ShortCNF.encode F).length ∧
         Executes (compile p input' out child)
@@ -55,11 +57,11 @@ theorem correct_forEach {k : ℕ} {p : Query (k + 1)}
       (fun w => (hf (.child w)).existsPorts (by intro h; have he := hi h; cases he))
       (fun w => hw (.child w)) F (Fin.cons ⟨i, hia⟩ v) _ hcleanpack hrchild
     rw [written_pack out _ _ (Ne.symm (hw .counter)) (Ne.symm (hw .coordinate))] at hrun
-    exact ⟨c, none, hb, by simpa [base, bits, f, hia] using hrun⟩
+    exact ⟨c, none, hb, by simpa [base, bits, f, hia] using! hrun⟩
   obtain ⟨c, hb, hrun⟩ := StackFor.forValues_executes base input.domain (work .counter)
     (work .coordinate) (work .tmp) hsep (compile p input' out child) f (ShortCNF.encode F).length
     ((cost p).eval (ShortCNF.encode F).length) hbc hbd hbt hbody (s.stk out)
-    (by simpa [base, payload, StackTuples.setStack, result, Ne.symm ho.1] using hr.domain)
+    (by simpa [base, payload, StackTuples.setStack, result, Ne.symm ho.1] using! hr.domain)
   have hbits : (List.range (ShortCNF.encode F).length).flatMap bits = word (.forEach p) F v := by
     rw [← List.map_coe_finRange_eq_range, List.flatMap_map]
     change (List.finRange (ShortCNF.encode F).length).flatMap (fun x => bits x.val) = _

@@ -1,5 +1,5 @@
 import Lax762056Proofs.EncodedReduction
-import Lax979537Proofs.StructureEncoding
+import Lax762056Proofs.QueryCompiler.StructureEncoding
 
 namespace Lax762056Proofs.EncodingFacts
 
@@ -16,9 +16,9 @@ theorem encode_injective : Function.Injective encode := by
   rintro ⟨n, F, k⟩ ⟨m, G, j⟩ h
   change (unary n ++ _) ++ _ = (unary m ++ _) ++ _ at h
   rw [List.append_assoc, List.append_assoc] at h
-  obtain ⟨hn, hrest⟩ := Lax979537Proofs.StructureEncoding.unary_append_inj n m _ _ h
+  obtain ⟨hn, hrest⟩ := Lax762056Proofs.QueryCompiler.StructureEncoding.unary_append_inj n m _ _ h
   cases hn
-  obtain ⟨hrows, hk⟩ := Lax979537Proofs.StructureEncoding.blocks_append_inj (List.finRange n)
+  obtain ⟨hrows, hk⟩ := Lax762056Proofs.QueryCompiler.StructureEncoding.blocks_append_inj (List.finRange n)
     (fun u => (List.finRange n).map (fun v => decide (F.Adj u v)))
     (fun u => (List.finRange n).map (fun v => decide (G.Adj u v)))
     (unary k) (unary j) (by simp) hrest

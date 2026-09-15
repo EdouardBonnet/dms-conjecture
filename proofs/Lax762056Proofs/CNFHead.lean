@@ -1,8 +1,10 @@
 import Lax762056Proofs.CNFLiteralSpec
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.CNFHead
 
-open Lax979537Proofs StackProgram StackTransfer CNFLiteral CNFPrefix
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer CNFLiteral CNFPrefix
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -43,7 +45,7 @@ theorem program_executes (base : K → List Bool) (src index : K) (hne : src ≠
       (true :: (ShortCNF.encodeClause C ++ ShortCNF.encode F)) (List.replicate old.1 true) a old.2 b
     have h := Executes.seq hr (Executes.branch_true (q := CNFScan.reset)
       (b := fun s : (Aux × Bool) × Option Bool => s.2 == some true) rfl hl)
-    convert h using 1 <;> simp [cost] <;> omega
+    convert! h using 1 <;> simp [cost] <;> omega
 
 theorem remainder_length (k : ℕ) (F : Option ShortCNF.Formula) :
     (remainder k F).length ≤ (contents F).length := by

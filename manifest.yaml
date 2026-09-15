@@ -1,11 +1,11 @@
 specVersion: "1"
 id: lax-762056
-leanVersion: "v4.30.0"
-mathlibVersion: "c5ea00351c28e24afc9f0f84379aa41082b1188f"
+leanVersion: "v4.33.0"
+mathlibVersion: "db584cd6d46c92f209a44c0f1c829460d327499d"
 title: "Max Independent Set Remains NP-hard when Excluding a Planar Induced Minor"
 authors:
   - name: Édouard Bonnet
-  - name: Codex gpt-6-astra max
+  - name: Codex 5.6 and 6
 bibEntries:
   - |
     @unpublished{BonnetChang,
@@ -24,6 +24,10 @@ bibEntries:
       year = {1976},
       doi = {10.1016/0304-3975(76)90059-1}
     }
+paper:
+  folder: paper
+  main: main.tex
+  engine: pdflatex
 issue:
   repositoryId: 1320232165
   number: 95

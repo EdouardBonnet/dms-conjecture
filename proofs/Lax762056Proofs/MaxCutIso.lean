@@ -1,8 +1,12 @@
 import Lax762056Proofs.CutScores
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.MaxCutIso
 
 open Lax762056
+
+attribute [local instance] Classical.propDecidable
 
 theorem edges_card {n : ℕ} (F : SimpleGraph (Fin n)) :
     (MaxCut.edges F).card = F.edgeFinset.card := by
@@ -28,7 +32,7 @@ theorem edges_card {n : ℕ} (F : SimpleGraph (Fin n)) :
 
 def cutGraph {n : ℕ} (F : SimpleGraph (Fin n)) (S : Finset (Fin n)) : SimpleGraph (Fin n) where
   Adj x y := F.Adj x y ∧ ((x ∈ S ∧ y ∉ S) ∨ (x ∉ S ∧ y ∈ S))
-  symm := by intro x y h; exact ⟨h.1.symm, by tauto⟩
+  symm := ⟨by intro x y h; exact ⟨h.1.symm, by tauto⟩⟩
   loopless := ⟨fun _ h => h.1.ne rfl⟩
 
 theorem cutSize_card {n : ℕ} (F : SimpleGraph (Fin n)) (S : Finset (Fin n)) :

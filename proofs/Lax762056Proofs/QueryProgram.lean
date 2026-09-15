@@ -1,5 +1,5 @@
-import Lax979537Proofs.FormulaLfpCorrectness
-import Lax979537Proofs.StackFor
+import Lax762056Proofs.QueryCompiler.FormulaLfpCorrectness
+import Lax762056Proofs.QueryCompiler.StackFor
 
 /-! A finite stack-program compiler for bounded tuple enumeration with
 first-order tests and binary output. The graph construction can enumerate
@@ -7,8 +7,8 @@ vertices and adjacency bits without storing an input-dependent program. -/
 
 namespace Lax762056Proofs.QueryProgram
 
-open Lax979537.OrderedStructures Lax979537.FixedPointSyntax
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056Proofs.QueryDefinitions.OrderedStructures Lax762056Proofs.QueryDefinitions.FixedPointSyntax
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 
 inductive Query (σ : Vocabulary) : ℕ → Type
   | emit {k : ℕ} (test bit : RawFormula σ k []) : Query σ k

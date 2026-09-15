@@ -4,6 +4,8 @@ import Lax762056Proofs.MaxCutIso
 noncomputable section
 open scoped Classical
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.CutEnumeration
 
 open CutVertices CNFWriter CutTests

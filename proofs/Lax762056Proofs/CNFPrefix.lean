@@ -2,7 +2,7 @@ import Lax762056Proofs.CNFScan
 
 namespace Lax762056Proofs.CNFPrefix
 
-open Lax979537Proofs StackProgram StackTransfer StackRepeat CNFScan
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackRepeat CNFScan
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -71,7 +71,7 @@ theorem prefixLoop_executes (base : K → List Bool) (counter src : K) (hne : co
     refine ⟨(c + 1) + d + 1, ?_, ?_⟩
     · simp only [Nat.mul_succ]
       omega
-    · simpa [repeatLoop, after, List.replicate_succ] using h
+    · simpa [repeatLoop, after, List.replicate_succ] using! h
 
 /-- Skip a requested number of clauses. Requests past the last clause are
 defined and still satisfy the same quadratic bound. -/

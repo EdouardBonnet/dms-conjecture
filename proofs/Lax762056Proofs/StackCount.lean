@@ -1,8 +1,8 @@
-import Lax979537Proofs.StackRepeat
+import Lax762056Proofs.QueryCompiler.StackRepeat
 
 namespace Lax762056Proofs.StackCount
 
-open Lax979537Proofs StackProgram StackTransfer StackRepeat
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer StackRepeat
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -20,7 +20,7 @@ theorem result_working (base : K → List Bool) (src dst : K) (hne : src ≠ dst
     result src (pushed dst) xs.length (working base src dst xs ys a b) =
       working base src dst [] (List.replicate xs.length true ++ ys) a none := by
   induction xs generalizing ys b with
-  | nil => simpa only [result, List.length_nil, List.replicate_zero, List.nil_append] using
+  | nil => simpa only [result, List.length_nil, List.replicate_zero, List.nil_append] using!
       pop_working base src dst hne [] ys a b
   | cons x xs ih =>
     simp only [List.length_cons, result]

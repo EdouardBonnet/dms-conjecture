@@ -3,10 +3,12 @@ import Lax762056Proofs.GraphQueryRun
 noncomputable section
 open scoped Classical
 
+set_option backward.isDefEq.respectTransparency false
+
 namespace Lax762056Proofs.GraphFormulas
 
-open Lax762056 Lax979537.OrderedStructures Lax979537.FixedPointSyntax
-open Lax979537Proofs
+open Lax762056 Lax762056Proofs.QueryDefinitions.OrderedStructures Lax762056Proofs.QueryDefinitions.FixedPointSyntax
+open Lax762056Proofs.QueryCompiler
 
 abbrev Formula (k : ℕ) := RawFormula [2] k []
 
@@ -88,7 +90,7 @@ theorem successor_iff {n : ℕ} (a b : Fin n) :
 theorem value_successor {n k : ℕ} (F : SimpleGraph (Fin n)) (a : Fin k → Fin n) (u v : Fin k) :
     value F a (successor u v) = decide ((a u).val + 1 = (a v).val) := by
   apply Bool.eq_iff_iff.mpr
-  simpa [value, successor, TableEvaluation.evaluate, not_and, not_lt] using
+  simpa [value, successor, TableEvaluation.evaluate, not_and, not_lt] using!
     successor_iff (a u) (a v)
 
 def raw {n k : ℕ} (a : Fin k → Fin n) (u v w : Fin k) (t p s : Bool) : EncodedReduction.Raw n :=

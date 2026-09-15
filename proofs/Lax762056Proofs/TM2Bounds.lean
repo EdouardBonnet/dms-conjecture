@@ -2,6 +2,8 @@ import Mathlib.Computability.TuringMachine.Computable
 import Mathlib.Algebra.BigOperators.Group.Finset.Basic
 import Mathlib.Tactic
 
+set_option backward.isDefEq.respectTransparency false
+
 /-! Output-length bounds and sequential composition of finite Turing-machine runs. -/
 
 namespace Lax762056Proofs.TM2Bounds
@@ -50,9 +52,9 @@ theorem stepAux_length (q : TM2.Stmt Γ Λ σ) (v : σ)
   | load f q ih => exact ih _ _
   | branch f p q ihp ihq =>
       cases hf : f v
-      · simpa only [TM2.stepAux, hf, Bool.cond_false] using
+      · simpa only [TM2.stepAux, hf, Bool.cond_false] using!
           (ihq v s).trans (Nat.add_le_add_left (Nat.le_max_right _ _) _)
-      · simpa only [TM2.stepAux, hf, Bool.cond_true] using
+      · simpa only [TM2.stepAux, hf, Bool.cond_true] using!
           (ihp v s).trans (Nat.add_le_add_left (Nat.le_max_left _ _) _)
   | goto f => simp [TM2.stepAux, pushes]
   | halt => simp [TM2.stepAux, pushes]

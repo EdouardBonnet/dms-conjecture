@@ -1,9 +1,11 @@
 import Lax762056Proofs.ShortCNF
-import Lax979537Proofs.StackRepeat
+import Lax762056Proofs.QueryCompiler.StackRepeat
+
+set_option backward.isDefEq.respectTransparency false
 
 namespace Lax762056Proofs.CNFScan
 
-open Lax979537Proofs StackProgram StackTransfer
+open Lax762056Proofs.QueryCompiler StackProgram StackTransfer
 
 variable {K Aux : Type} [DecidableEq K]
 
@@ -33,14 +35,14 @@ theorem unaryLoop_executes (base : K → List Bool) (src : K) (n : ℕ) (tail : 
     have h := Executes.loop_true (p := read src) (b := fun s : Aux × Option Bool => s.2 == some true)
       (s := store base src (List.replicate n true ++ false :: tail) a (some true)) rfl
       (read_store base src _ a (some true)) ih
-    convert h using 1 <;> simp [unaryLoop, List.replicate_succ] <;> omega
+    convert! h using 1 <;> simp [unaryLoop, List.replicate_succ] <;> omega
 
 theorem skipUnary_executes (base : K → List Bool) (src : K) (n : ℕ) (tail : List Bool)
     (a : Aux) (b : Option Bool) :
     Executes (skipUnary src) (store base src (List.replicate n true ++ false :: tail) a b)
       (store base src tail a (some false)) (2 * n + 2) := by
   have h := Executes.seq (read_store base src _ a b) (unaryLoop_executes base src n tail a)
-  convert h using 1 <;> omega
+  convert! h using 1 <;> omega
 
 theorem reset_executes (base : K → List Bool) (src : K) (xs : List Bool)
     (a : Aux) (b : Option Bool) :
@@ -80,7 +82,7 @@ theorem clauseLoop_executes (base : K → List Bool) (src : K) (C : ShortCNF.Cla
       (read_store base src (ShortCNF.encodeClause C ++ tail) a none)
     have h := Executes.loop_true (p := .seq (skipLiteral src) (read src))
       (b := fun s : Aux × Option Bool => s.2 == some true) rfl hbody ih
-    convert h using 1 <;>
+    convert! h using 1 <;>
       simp [clauseLoop, ShortCNF.encodeClause, ShortCNF.encodeList, clauseCost, List.append_assoc] <;> omega
 
 theorem skipClause_executes (base : K → List Bool) (src : K) (C : ShortCNF.Clause)
@@ -90,7 +92,7 @@ theorem skipClause_executes (base : K → List Bool) (src : K) (C : ShortCNF.Cla
   have h := Executes.seq (read_store base src _ a b)
     (Executes.seq (clauseLoop_executes base src C tail a)
       (reset_executes base src tail a (some false)))
-  convert h using 1 <;> omega
+  convert! h using 1 <;> omega
 
 theorem clauseCost_length (C : ShortCNF.Clause) :
     clauseCost C + 2 = 2 * (ShortCNF.encodeClause C).length := by
@@ -108,7 +110,7 @@ theorem skipClause_linear (base : K → List Bool) (src : K) (C : ShortCNF.Claus
     (tail : List Bool) (a : Aux) (b : Option Bool) :
     Executes (skipClause src) (store base src (ShortCNF.encodeClause C ++ tail) a b)
       (store base src tail a none) (2 * (ShortCNF.encodeClause C).length + 1) := by
-  convert skipClause_executes base src C tail a b using 1
+  convert! skipClause_executes base src C tail a b using 1
   have := clauseCost_length C
   omega
 

@@ -1,6 +1,8 @@
 import Lax762056Proofs.TM2Bounds
 import Mathlib.Data.Fintype.Sum
 
+set_option backward.isDefEq.respectTransparency false
+
 /-! Sequential composition of two finite machines with a binary intermediate
 word. Two transfers preserve the word's order and empty the temporary stack. -/
 
@@ -91,9 +93,9 @@ theorem left_stepAux (q : M.Stmt) (v : M.σ) (s : (k : M.K) → List (M.Γ k)) :
     TM2.stepAux (leftStmt M N q) (v, N.initialState, none)
       (joinedStacks M N s (fun _ => []) []) = leftCfg M N (TM2.stepAux q v s) := by
   induction q generalizing v s with
-  | push k f q ih => simpa only [leftStmt, TM2.stepAux, update_left] using ih v _
+  | push k f q ih => simpa only [leftStmt, TM2.stepAux, update_left] using! ih v _
   | pop k f q ih =>
-      simpa only [leftStmt, TM2.stepAux, joinedStacks, update_left] using ih (f v (s k).head?) _
+      simpa only [leftStmt, TM2.stepAux, joinedStacks, update_left] using! ih (f v (s k).head?) _
   | peek k f q ih => exact ih _ _
   | load f q ih => exact ih _ _
   | branch f p q ihp ihq => cases hf : f v <;> simp [leftStmt, TM2.stepAux, hf, ihp, ihq]
@@ -104,9 +106,9 @@ theorem right_stepAux (q : N.Stmt) (v : N.σ) (s : (k : N.K) → List (N.Γ k)) 
     TM2.stepAux (rightStmt M N q) (M.initialState, v, none)
       (joinedStacks M N (fun _ => []) s []) = rightCfg M N (TM2.stepAux q v s) := by
   induction q generalizing v s with
-  | push k f q ih => simpa only [rightStmt, TM2.stepAux, update_right] using ih v _
+  | push k f q ih => simpa only [rightStmt, TM2.stepAux, update_right] using! ih v _
   | pop k f q ih =>
-      simpa only [rightStmt, TM2.stepAux, joinedStacks, update_right] using ih (f v (s k).head?) _
+      simpa only [rightStmt, TM2.stepAux, joinedStacks, update_right] using! ih (f v (s k).head?) _
   | peek k f q ih => exact ih _ _
   | load f q ih => exact ih _ _
   | branch f p q ihp ihq => cases hf : f v <;> simp [rightStmt, TM2.stepAux, hf, ihp, ihq]

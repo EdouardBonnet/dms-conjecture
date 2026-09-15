@@ -52,7 +52,7 @@ theorem comp {α β γ αΓ γΓ : Type} {eα : α → List αΓ} {eβ : β → 
   refine ⟨⟨r₁.steps + (2 * (eβ (f a)).length + 2) + r₂.steps, ?_⟩, ?_⟩
   · simpa only [List.length_map, initial_eq,
       terminal_eq h₁.tm h₂.tm h₁.outputAlphabet h₂.inputAlphabet, Function.comp_apply, T,
-      Option.map_some] using hfull
+      Option.map_some] using! hfull
   · have hb₁ := r₁.steps_le_m
     have hb₂ := r₂.steps_le_m
     change r₁.steps ≤ h₁.time.eval (eα a).length at hb₁

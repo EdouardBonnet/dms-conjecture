@@ -2,8 +2,8 @@ import Lax762056Proofs.GraphQuery
 
 namespace Lax762056Proofs.GraphQuery
 
-open Lax762056 GraphEncoding Lax979537.OrderedStructures
-open Lax979537Proofs StackProgram StackBoolean
+open Lax762056 GraphEncoding Lax762056Proofs.QueryDefinitions.OrderedStructures
+open Lax762056Proofs.QueryCompiler StackProgram StackBoolean
 
 theorem finish_executes (q : Q) (I : Instance) (bits : List Bool) :
     Executes (finish q) (QueryProgram.written (Port.acc : Port q) bits (prepared q I))

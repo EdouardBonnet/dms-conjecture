@@ -1,5 +1,6 @@
 specVersion: "1"
-id: lax-762056
+id: lax-222097
+supersedes: lax-762056
 leanVersion: "v4.33.0"
 mathlibVersion: "db584cd6d46c92f209a44c0f1c829460d327499d"
 title: "Max Independent Set Remains NP-hard when Excluding a Planar Induced Minor"
@@ -30,4 +31,4 @@ paper:
   engine: pdflatex
 issue:
   repositoryId: 1320232165
-  number: 95
+  number: 156

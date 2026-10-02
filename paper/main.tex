@@ -239,9 +239,9 @@ We refute \cref{conj:dms,conj:qdms,conj:gl} (unless P $=$ NP for \cref{conj:dms,
 
 \begin{theorem}\label{thm:main}
 \leavevmode
-% lax begin Lax762056.IndependentSetHardness
+% lax begin Lax222097.IndependentSetHardness
 \smis is NP-hard in graphs excluding the $5 \times 5$ grid as an induced minor.
-% lax end Lax762056.IndependentSetHardness
+% lax end Lax222097.IndependentSetHardness
 \end{theorem}
 
 The proof is a~remarkably simple reduction from \textsc{Max Cut} on general graphs~$F$.
@@ -298,25 +298,25 @@ For any graph $G$, $V(G)$ and $E(G)$ denote the vertex set and edge set, respect
 If $S \subseteq V(G)$, then $G[S]$ denotes the subgraph of~$G$ induced by~$S$.
 
 \leavevmode
-% lax begin Lax762056.MaxCut
+% lax begin Lax222097.MaxCut
 We denote by $\alpha(G)$ the \emph{independence number} of~$G$, that is, the size of a~largest subset of vertices of~$G$ that are pairwise nonadjacent.
 We write $\maxcut(G)$ for the number of edges in a~maximum-cardinality cut of~$G$.
-% lax end Lax762056.MaxCut
+% lax end Lax222097.MaxCut
 
 \begin{reptheorem}{thm:main}
 \leavevmode
-% lax begin Lax762056.IndependentSetHardness
+% lax begin Lax222097.IndependentSetHardness
 \smis is NP-hard in graphs excluding the $5 \times 5$ grid as an induced minor.
-% lax end Lax762056.IndependentSetHardness
+% lax end Lax222097.IndependentSetHardness
 \end{reptheorem}
 
 \begin{proof}
 \leavevmode
-% lax begin Lax762056Proofs.independentSet_inducedGrid_hardness
+% lax begin Lax222097Proofs.independentSet_inducedGrid_hardness
 We reduce \textsc{Max Cut} in general graphs to \mis in graphs excluding a~fixed planar induced minor.
   Let $F$ be any $n$-vertex $m$-edge \textsc{Max Cut} instance.
 \leavevmode
-% lax begin Lax762056.ColumnGraph
+% lax begin Lax222097.ColumnGraph
 We first build an intermediate graph~$G$ with vertex set
   \[ \{(i,j,s) \mid i \in [2m],~j \in [2n-1],~s \in \{0,1\}\},\]
   where we see $i$ as the row index, $j$ as the column index, and $s$ as the side, and edge set
@@ -331,7 +331,7 @@ We first build an intermediate graph~$G$ with vertex set
   Similarly, a~\emph{row} is any set $\{(i,j,s) \mid j \in [2n-1],~s \in \{0,1\}\}$ with $i \in [2m]$.
   We reserve two rows for each edge $e \in E(F)$, and denote them by $R'_{e,0}$ and $R'_{e,1}$.
   For convenience, we denote by $e^0, e^1 \in [2m]$ the row indices of $R'_{e,0}, R'_{e,1}$, respectively. 
-% lax end Lax762056.ColumnGraph
+% lax end Lax222097.ColumnGraph
 
 \begin{figure}[!ht]
 \centering
@@ -394,13 +394,13 @@ We first build an intermediate graph~$G$ with vertex set
 \end{figure}
   
 \leavevmode
-% lax begin Lax762056.Reduction
+% lax begin Lax222097.Reduction
 We finally define the following induced subgraph $G_F$ of~$G$.
   For every edge $e=v_jv_{j'} \in E(F)$ (with $j < j'$), we only keep from $R'_{e,0}$ the vertices $(e^0,2j-1,0)$, $(e^0,2j'-1,1)$, and all the vertices $(e^0,j'',s)$ with $2j-1 < j'' <2j'-1,~s \in \{0,1\}$, and from $R'_{e,1}$ the vertices $(e^1,2j-1,1)$, $(e^1,2j'-1,0)$, and all the vertices $(e^1,j'',s)$ with $2j-1 < j'' <2j'-1,~s \in \{0,1\}$.
   We denote by $R_{e,0} \subset R'_{e,0}$ and $R_{e,1} \subset R'_{e,1}$ the obtained subsets.
   This completes the construction; see~\cref{fig:edge-gadget}.
   We denote by $S_0$ the set of vertices of~$G_F$ whose last coordinate is 0 (on the side $s=0$), and by $S_1$ the set of vertices of~$G_F$ on the side $s=1$.
-% lax end Lax762056.Reduction
+% lax end Lax222097.Reduction
 
 \begin{figure}[!ht]
 \centering
@@ -476,13 +476,13 @@ We finally define the following induced subgraph $G_F$ of~$G$.
 
   \begin{claim}
 \leavevmode
-% lax begin Lax762056.ColumnGridExclusion
+% lax begin Lax222097.ColumnGridExclusion
 Graph $G$ excludes the $5 \times 5$ grid as an induced minor.
-% lax end Lax762056.ColumnGridExclusion
+% lax end Lax222097.ColumnGridExclusion
   \end{claim}
 \begin{claimproof}
 \leavevmode
-% lax begin Lax762056Proofs.columnGraph_excludes_inducedGrid
+% lax begin Lax222097Proofs.columnGraph_excludes_inducedGrid
 We first claim that every cycle of~$G$ contains two (adjacent) vertices in the same column but on different sides, i.e., of the form $(i,j,0)$ and $(i',j,1)$.
     Indeed, if one removes from $G$ all the edges with endpoints in the same column but on different sides, the resulting graph $G'$ is the disjoint union of $2m$ graphs $Q_{2n-1}$ obtained from two $(2n-1)$-vertex paths $P_{2n-1}$ by making the $j$th vertex of the first path adjacent to the $(j-1)$st and $(j+1)$st of the other path (when these vertices exist).
     In particular, consider a~\emph{leftmost} vertex $(\widehat{i},\widehat{j},s)$ (i.e., minimizing $\widehat{j}$) of a~cycle $C$ that does not contain a~pair $(i,j,0), (i',j,1)$. Its two neighbors on~$C$ must be $(\widehat{i},\widehat{j}+1,0)$ and $(\widehat{i},\widehat{j}+1,1)$; these two vertices form such a~pair.
@@ -534,13 +534,13 @@ We first claim that every cycle of~$G$ contains two (adjacent) vertices in the s
 \end{figure}
     
 \leavevmode
-% lax begin Lax762056.AsteroidalCycles
+% lax begin Lax222097.AsteroidalCycles
 Let $H$ be any graph with three vertex-disjoint and nonadjacent cycles $\Gamma_1, \Gamma_2, \Gamma_3$ such that there is a~path between any two cycles in the non-neighborhood of the third cycle.
 \leavevmode
-% lax begin Lax762056.CycleObstruction
+% lax begin Lax222097.CycleObstruction
 Note that the $5 \times 5$ grid is such a~graph~$H$; see~\cref{fig:grid-three-cycles}.
-% lax end Lax762056.CycleObstruction
-% lax end Lax762056.AsteroidalCycles
+% lax end Lax222097.CycleObstruction
+% lax end Lax222097.AsteroidalCycles
     \begin{figure}[!ht]
 \centering
 \begin{tikzpicture}[
@@ -580,36 +580,36 @@ Note that the $5 \times 5$ grid is such a~graph~$H$; see~\cref{fig:grid-three-cy
 \end{figure}
     
 \leavevmode
-% lax begin Lax762056.CycleObstruction
+% lax begin Lax222097.CycleObstruction
 We claim that no such graph $H$ is an induced minor of~$G$.
-% lax end Lax762056.CycleObstruction
+% lax end Lax222097.CycleObstruction
 \leavevmode
-% lax begin Lax762056Proofs.Obstruction.asteroidalCycles_obstruction
+% lax begin Lax222097Proofs.Obstruction.asteroidalCycles_obstruction
 The subgraph of~$G$ induced by the union $U_a$ of the branch sets representing $V(\Gamma_a)$ (for any $a \in [3]$) has to contain a~cycle. 
     By the first paragraph, there are three column indices $j_1, j_2, j_3 \in [2n-1]$ such that $U_a$ contains a~pair of the form $(\cdot,j_a,0), (\cdot,j_a,1)$ for each $a \in [3]$.
     Without loss of generality, let us assume that $j_1 \leqslant j_2 \leqslant j_3$.
     Since the cycles $\Gamma_1, \Gamma_2, \Gamma_3$ are nonadjacent, we further have $j_1 < j_2 < j_3$.
     Finally, note that, for any $i,i' \in [2m]$, $N_G(\{(i,j_2,0), (i',j_2,1)\}) \supseteq C_{j_2}$ and that the removal of $C_{j_2}$ disconnects $C_{j_1}$ from $C_{j_3}$.
     This contradicts the assumption that there is a~path between $\Gamma_1$ and $\Gamma_3$ in the non-neighborhood of~$\Gamma_2$.
-% lax end Lax762056Proofs.Obstruction.asteroidalCycles_obstruction
+% lax end Lax222097Proofs.Obstruction.asteroidalCycles_obstruction
 \claimqedhere
-% lax end Lax762056Proofs.columnGraph_excludes_inducedGrid
+% lax end Lax222097Proofs.columnGraph_excludes_inducedGrid
   \end{claimproof}
 \leavevmode
-% lax begin Lax762056.GridExclusion
+% lax begin Lax222097.GridExclusion
 In particular, the induced subgraph $G_F$ of $G$ excludes the $5 \times 5$ grid as an induced minor.
-% lax end Lax762056.GridExclusion
+% lax end Lax222097.GridExclusion
   We finish the proof by showing that computing the independence number of~$G_F$ would solve \textsc{Max Cut} for the arbitrary graph~$F$.
   
   \begin{claim}
 \leavevmode
-% lax begin Lax762056.IndependenceIdentity
+% lax begin Lax222097.IndependenceIdentity
 $\alpha(G_F) = \maxcut(F) + 2 \sum\limits_{v_j v_{j'} \in E(F),~j<j'} j'-j$.
-% lax end Lax762056.IndependenceIdentity
+% lax end Lax222097.IndependenceIdentity
   \end{claim}
 \begin{claimproof}
 \leavevmode
-% lax begin Lax762056Proofs.independence_eq_maxCut_offset
+% lax begin Lax222097Proofs.independence_eq_maxCut_offset
 We first show that \[\alpha(G_F) \geqslant \maxcut(F) + 2 \sum\limits_{v_j v_{j'} \in E(F),~j<j'} j'-j.\]
     Let $(A_0,A_1)$ be a~bipartition of~$V(F)$ realizing the maximum cut.
     We identify $A_0$ (resp.~$A_1$) with the side $s=0$ (resp.~$s=1$).
@@ -815,13 +815,13 @@ We first show that \[\alpha(G_F) \geqslant \maxcut(F) + 2 \sum\limits_{v_j v_{j'
 
     We conclude that $|I| \leqslant \maxcut(F) + 2 \sum\limits_{v_j v_{j'} \in E(F),~j<j'} j'-j$.
 \claimqedhere
-% lax end Lax762056Proofs.independence_eq_maxCut_offset
+% lax end Lax222097Proofs.independence_eq_maxCut_offset
   \end{claimproof}
 
   One can easily compute $2 \sum_{v_j v_{j'} \in E(F),~j<j'} j'-j$ in polynomial time.
   So we conclude that solving \smis on $G_F$ is as hard as solving \textsc{Max Cut} on~$F$.
 \qedhere
-% lax end Lax762056Proofs.independentSet_inducedGrid_hardness
+% lax end Lax222097Proofs.independentSet_inducedGrid_hardness
 \end{proof}
 
 We obtain the following corollary by reducing from \textsc{Max Cut} on subcubic graphs.

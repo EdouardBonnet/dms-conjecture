@@ -8,21 +8,21 @@ G_F in this class with
 α(G_F) = MaxCut(F) + 2 ∑_{uv ∈ E(F), u < v} (v − u).
 ```
 
-The [main theorem](concepts/Lax762056/IndependentSetHardness.lean) states
+The [main theorem](concepts/Lax222097/IndependentSetHardness.lean) states
 `NPHardOn IndependentSet (ExcludesInducedGrid 5)`, with `GraphProblems` and
 `Grid` open.
 The reductions in `NPHardOn` produce graphs in the specified class on every
-input. [GraphProblems](concepts/Lax762056/GraphProblems.lean) defines the
+input. [GraphProblems](concepts/Lax222097/GraphProblems.lean) defines the
 decision problems and hardness predicates;
-[GraphEncoding](concepts/Lax762056/GraphEncoding.lean) specifies their encoding.
-The [grid predicate](concepts/Lax762056/Grid.lean) takes the side length as
+[GraphEncoding](concepts/Lax222097/GraphEncoding.lean) specifies their encoding.
+The [grid predicate](concepts/Lax222097/Grid.lean) takes the side length as
 a parameter and excludes the corresponding square grid as an induced minor.
 
 The construction and its structural properties are in
-[Reduction](concepts/Lax762056/Reduction.lean),
-[ColumnGridExclusion](concepts/Lax762056/ColumnGridExclusion.lean),
-[GridExclusion](concepts/Lax762056/GridExclusion.lean), and
-[IndependenceIdentity](concepts/Lax762056/IndependenceIdentity.lean).
+[Reduction](concepts/Lax222097/Reduction.lean),
+[ColumnGridExclusion](concepts/Lax222097/ColumnGridExclusion.lean),
+[GridExclusion](concepts/Lax222097/GridExclusion.lean), and
+[IndependenceIdentity](concepts/Lax222097/IndependenceIdentity.lean).
 [PROOFS.md](PROOFS.md) describes the proof structure.
 
 The complexity definitions come from [lax-434930](https://laxarchive.org/lax-434930/). Max Cut
@@ -48,4 +48,4 @@ Lean version: 4.33.0. Mathlib revision:
 The annotated paper is in [paper/main.tex](paper/main.tex). Its mathematical
 text, proofs, authors, and figures are preserved.
 
-[Archive entry](https://laxarchive.org/lax-762056/).
+[Archive entry](https://laxarchive.org/lax-222097/).
